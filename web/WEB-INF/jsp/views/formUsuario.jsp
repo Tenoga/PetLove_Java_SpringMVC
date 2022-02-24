@@ -15,11 +15,11 @@
     </head>
     <body>
         <%@include file="components/Nav.jsp" %>
-        <form:errors path = "*" element="div" cssClass="alert alert-danger"></form:errors>    
         <div class="container mt-5">
          <div class="p-4 m-auto w-75 bg-primary bg-opacity-25 rounded">
             <h1 style="text-align: center;">Crear Usuario</h1>
-            <form:form commandName="usuario" >
+            <form:form commandName="usuario" method="post">
+                <form:errors path = "*" element="div" cssClass="alert alert-danger"></form:errors>
                 <div class="form-group">
                     <form:label path="nombre">Nombre de usuario:</form:label>                         
                     <form:input path="nombre"></form:input>                     

@@ -20,8 +20,8 @@
         <div class="container mt-5">
             <div class="p-4 m-auto w-75 bg-primary bg-opacity-25 rounded">
                 <h1 style="text-align: center;">Crear Mascota</h1>
-                <form:errors path ="*" element="div" cssClass="alert alert-danger"></form:errors>
-                <form:form commandName="pet">
+                <form:form commandName="pet" method="post">
+                    <form:errors path ="*" element="div" cssClass="alert alert-danger"></form:errors>
                     <div class="form-group">
                         <form:label path="petTipo">Tipo de Mascota</form:label>
                         <form:select path="petTipo">
