@@ -38,29 +38,46 @@ public class homeController {
         mav.addObject("usuario", usuario);
         return mav;
     }
-
-    @RequestMapping(value = "formUsuario.htm", method = RequestMethod.POST)
-    public ModelAndView viewusuario(@ModelAttribute("usuario") UsuarioBean user,
+         @RequestMapping(value = "formUsuario.htm", method = RequestMethod.POST)
+    public ModelAndView valpostUserForm(
+            @ModelAttribute("usuario") UsuarioBean ub, 
             BindingResult result,
             SessionStatus status
-    ) {
-        this.usuariovalidar.validate(user, result);
-        if (result.hasErrors()) {
-            ModelAndView mov = new ModelAndView();
-            mov.addObject("usuario", new UsuarioBean());
-            mov.setViewName("views/formUsuario");
-            return mov;
-        } else {
-            ModelAndView mav = new ModelAndView();
+            ){
+        ModelAndView mav = new ModelAndView();
+        this.usuariovalidar.validate(ub, result);
+        if(result.hasErrors()){
+            mav.addObject("ub", new UsuarioBean());
+            mav.setViewName("views/formUsuario");
+        }else{
+            mav.addObject("ub", ub);
             mav.setViewName("views/viewUsuario");
-            mav.addObject("nombre", user.getNombre());
-            mav.addObject("correo", user.getCorreo());
-            mav.addObject("edad", user.getEdad());
-            mav.addObject("telefono", user.getTelefono());
-            return mav;
-
         }
+        return mav;
     }
+
+//    @RequestMapping(value = "formUsuario.htm", method = RequestMethod.POST)
+//    public ModelAndView viewusuario(@ModelAttribute("usuario") UsuarioBean user,
+//            BindingResult result,
+//            SessionStatus status
+//    ) {
+//        this.usuariovalidar.validate(user, result);
+//        if (result.hasErrors()) {
+//            ModelAndView mov = new ModelAndView();
+//            mov.addObject("usuario", new UsuarioBean());
+//            mov.setViewName("views/formUsuario");
+//            return mov;
+//        } else {
+//            ModelAndView mav = new ModelAndView();
+//            mav.setViewName("views/viewUsuario");
+//            mav.addObject("nombre", user.getNombre());
+//            mav.addObject("correo", user.getCorreo());
+//            mav.addObject("edad", user.getEdad());
+//            mav.addObject("telefono", user.getTelefono());
+//            return mav;
+//
+//        }
+//    }
 
     @RequestMapping(value = "formPet.htm", method = RequestMethod.GET)
     public ModelAndView pet() {
@@ -94,4 +111,5 @@ public class homeController {
             return mav;
         }
     }
+
 }

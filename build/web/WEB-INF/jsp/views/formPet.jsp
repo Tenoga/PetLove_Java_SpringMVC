@@ -17,10 +17,24 @@
     </head>
     <body>
         <%@include file="components/Nav.jsp" %>
+        <%
+                        try {
+                    %>
+                    <sql:setDataSource driver="com.mysql.jdbc.Driver"
+                                       url="jdbc:mysql://localhost:3306/petlove"
+                                       user="root"
+                                       password=""/>
+                    Conexión a base de datos exitosa
+                    <%
+                        } catch (Exception ex) {
+                            out.print("Conexion a Base de datos fallida: " + ex.getMessage());
+                        }
+                    %>
         <div class="container mt-5">
             <div class="p-4 m-auto w-75 bg-primary bg-opacity-25 rounded">
                 <h1 style="text-align: center;">Crear Mascota</h1>
                 <form:form commandName="pet" method="post">
+                     
                     <form:errors path ="*" element="div" cssClass="alert alert-danger"></form:errors>
                     <div class="form-group">
                         <form:label path="petTipo">Tipo de Mascota</form:label>
@@ -37,7 +51,7 @@
                         <form:input path="petNombre" cssClass="input100"></form:input>
                         </div>
                         <div class="form-group">
-                        <form:label path="petNacimiento">Fecha de Nacimiento:</form:label>
+                        <form:label path="petNacimiento">Edad (años):</form:label>
                         <form:input path="petNacimiento"></form:input>
                         </div>
                         <div class="form-group">

@@ -5,8 +5,9 @@
 --%>
 <%@page import="models.Dao"%>
 <%@page import="java.sql.Connection"%>
-<%@taglib prefix="u" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@taglib prefix="sql" uri="http://java.sun.com/jsp/jstl/sql" %>
 <!DOCTYPE html>
 <html>
     <head>
@@ -16,16 +17,27 @@
     </head>
     <body>
         <%@include file="components/Nav.jsp" %>
-        <%
-                try {
-                    if (Dao.conecta() != null) {
-                        Connection con = Dao.conecta();
-                        out.print("Conexion a Base de datos exitosa.");
-                    }
-                } catch (Exception ex) {
-                    out.print("Conexion a Base de datos fallida: " + ex.getMessage());
-                }
-            %>
+
+        <c:catch var="errorDB">
+            <sql:setDataSource driver="com.mysql.jdbc.Driver"
+                               url="jdbc:mysql://localhost:3306/petlove"
+                               user="root"
+                               password=""/>
+            <sql:update>
+                INSERT INTO usuario(id, nombre, correo, edad, telefono) VALUES (
+                "${ub.getId()}",
+                "${ub.getNombre()}" ,
+                "${ub.getCorreo()}",
+                "${ub.getEdad()}",
+                "${ub.getTelefono()}"
+                );
+            </sql:update>
+        </c:catch>
+        <c:if test="${not empty errorDB}">
+            <div class="alert alert-danger">
+                <strong>Se produjo un error:</strong> ${errorDB} <br>
+            </div>
+        </c:if>
         <div class="container mt-5">
             <div class="p-4 m-auto w-75 bg-primary bg-opacity-25 rounded">
                 <table class="table">
@@ -40,11 +52,11 @@
                     </thead>
                     <tbody>
                         <tr>
-                            <td><u:out value="${id}"></u:out></td>
-                            <td><u:out value="${nombre}"></u:out></td>
-                            <td><u:out value="${correo}"></u:out></td>
-                            <td><u:out value="${edad}"></u:out></td>
-                            <td><u:out value="${telefono}"></u:out></td>
+                            <td><c:out value="${ub.id}"></c:out></td>
+                            <td><c:out value="${ub.nombre}"></c:out></td>
+                            <td><c:out value="${ub.correo}"></c:out></td>
+                            <td><c:out value="${ub.edad}"></c:out></td>
+                            <td><c:out value="${ub.telefono}"></c:out></td>
                         </tr>
                     </tbody>
                 </table>
