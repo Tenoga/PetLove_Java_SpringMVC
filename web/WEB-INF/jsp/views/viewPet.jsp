@@ -23,7 +23,7 @@
                                password=""/>
             <sql:update>
                 INSERT INTO pet(id, petTipo, petNombre, petNacimiento, petRaza, petColor) VALUES (
-                "${pet.getId()}}",
+                "${pet.getId()}",
                 "${pet.getPetTipo()}",
                 "${pet.getPetNombre()}" ,
                 "${pet.getPetNacimiento()}",
