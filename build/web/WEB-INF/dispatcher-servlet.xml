@@ -20,10 +20,12 @@
         <property name="mappings">
             <props>
                 <prop key="index.htm">indexController</prop>
-                <prop key="formUsuario.htm">homeController</prop>
                 <prop key="formPet.htm">homeController</prop>
-                <prop key="viewUsuario.htm">homeController</prop>
                 <prop key="viewPet.htm">homeController</prop>
+                <prop key="formUsuario.htm">userController</prop>
+                <prop key="listUsuario.htm">userController</prop>
+                <prop key="viewUsuario.htm">userController</prop>
+         
             </props>
         </property>
     </bean>
@@ -39,6 +41,10 @@
     <bean name="indexController"
           class="org.springframework.web.servlet.mvc.ParameterizableViewController"
           p:viewName="index" />
+    
+    
     <bean name="homeController" class="controllers.homeController"/>
-
+    
+    <bean name="userController" class="controllers.userController"/>
+    
 </beans>

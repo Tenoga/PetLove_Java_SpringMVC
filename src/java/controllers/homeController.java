@@ -5,11 +5,14 @@
  */
 package controllers;
 
+import Dao.ConectarDB;
+import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import models.PetBean;
 import models.PetBeanValidation;
 import models.UsuarioBean;
 import models.UsuarioBeanValidation;
+import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
@@ -23,39 +26,16 @@ import org.springframework.web.servlet.ModelAndView;
 public class homeController {
 
     private PetBeanValidation petValidar;
-    private UsuarioBeanValidation usuariovalidar;
+    private JdbcTemplate jdbcTemplate;
 
     public homeController() {
         this.petValidar = new PetBeanValidation();
-        this.usuariovalidar = new UsuarioBeanValidation();
-    }
+        
 
-    @RequestMapping(value = "formUsuario.htm", method = RequestMethod.GET)
-    public ModelAndView usuario() {
-        UsuarioBean usuario = new UsuarioBean();
-        ModelAndView mav = new ModelAndView();
-        mav.setViewName("views/formUsuario");
-        mav.addObject("usuario", usuario);
-        return mav;
+        ConectarDB con = new ConectarDB();
+        jdbcTemplate = new JdbcTemplate();
     }
-         @RequestMapping(value = "formUsuario.htm", method = RequestMethod.POST)
-    public ModelAndView valpostUserForm(
-            @ModelAttribute("usuario") UsuarioBean ub, 
-            BindingResult result,
-            SessionStatus status
-            ){
-        ModelAndView mav = new ModelAndView();
-        this.usuariovalidar.validate(ub, result);
-        if(result.hasErrors()){
-            mav.addObject("ub", new UsuarioBean());
-            mav.setViewName("views/formUsuario");
-        }else{
-            mav.addObject("ub", ub);
-            mav.setViewName("views/viewUsuario");
-        }
-        return mav;
-    }
-
+    
 //    @RequestMapping(value = "formUsuario.htm", method = RequestMethod.POST)
 //    public ModelAndView viewusuario(@ModelAttribute("usuario") UsuarioBean user,
 //            BindingResult result,
@@ -111,5 +91,5 @@ public class homeController {
             return mav;
         }
     }
-
+    
 }

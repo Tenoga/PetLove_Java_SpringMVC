@@ -21,7 +21,7 @@
                     <a class="nav-link" href="index.htm">Inicio</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="formUsuario.htm">Usuarios</a>
+                    <a class="nav-link" href="listUsuario.htm">Usuarios</a>
                 </li>
                 <li class="nav-item">
                      <a class="nav-link" href="formPet.htm">Mascotas</a>

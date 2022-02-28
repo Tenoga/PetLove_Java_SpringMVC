@@ -20,19 +20,6 @@
             <div class="p-4 m-auto w-75 bg-primary bg-opacity-25 rounded">
                 <h1 style="text-align: center;">Crear Usuario</h1>
                 <form:form commandName="usuario" method="POST">
-                    <%
-                        try {
-                    %>
-                    <sql:setDataSource driver="com.mysql.jdbc.Driver"
-                                       url="jdbc:mysql://localhost:3306/petlove"
-                                       user="root"
-                                       password=""/>
-                    Conexión a base de datos exitosa
-                    <%
-                        } catch (Exception ex) {
-                            out.print("Conexion a Base de datos fallida: " + ex.getMessage());
-                        }
-                    %>
                     <form:errors path = "*" element="div" cssClass="alert alert-danger"></form:errors>
                         <div class="form-group">
                         <form:label path="nombre" >Nombre de usuario:</form:label>                         
@@ -55,7 +42,7 @@
                             <form:button name="Enviar" value="Crear Usuario" class="btn btn-success" >Crear</form:button>                         
                             </div>
                             <div class="col">
-                                <a href="index.htm" class="btn btn-danger">Regresar</a>                     
+                                <a href="listUsuario.htm" class="btn btn-danger">Regresar</a>                     
                             </div>
                         </div>
                 </form:form>
