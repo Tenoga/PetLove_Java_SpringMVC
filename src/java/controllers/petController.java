@@ -3,7 +3,6 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package controllers;
 
 import Dao.ConectarDB;
@@ -26,19 +25,18 @@ import org.springframework.web.servlet.ModelAndView;
  */
 @Controller
 public class petController {
-    
+
     private PetBeanValidation petValidar;
     private JdbcTemplate jdbcTemplate;
 
     public petController() {
         this.petValidar = new PetBeanValidation();
-        
 
         ConectarDB con = new ConectarDB();
         jdbcTemplate = new JdbcTemplate(con.conDB());
     }
-    
-     @RequestMapping(value = "formPet.htm", method = RequestMethod.GET)
+
+    @RequestMapping(value = "formPet.htm", method = RequestMethod.GET)
     public ModelAndView pet() {
         PetBean pet = new PetBean();
         ModelAndView mav = new ModelAndView();
@@ -46,32 +44,30 @@ public class petController {
         mav.addObject("pet", pet);
         return mav;
     }
+// ==============Vista pet e insercion de datos en BD=============================
 
     @RequestMapping(value = "formPet.htm", method = RequestMethod.POST)
-    public ModelAndView vistaPet(@ModelAttribute("pet") PetBean mas,
+    public ModelAndView vistaPet(
+            @ModelAttribute("pet") PetBean pb,
             BindingResult result,
             SessionStatus status
     ) {
-        this.petValidar.validate(mas, result);
+        ModelAndView mav = new ModelAndView();
+        this.petValidar.validate(pb, result);
         if (result.hasErrors()) {
-            ModelAndView mov = new ModelAndView();
-            mov.addObject("pet", new PetBean());
-            mov.setViewName("views/formPet");
-            return mov;
+            mav.addObject("pb", new PetBean());
+            mav.setViewName("views/formPet");
+            return mav;
         } else {
-            ModelAndView mav = new ModelAndView();
-            mav.setViewName("views/viewPet");
-            mav.addObject("petTipo", mas.getPetTipo());
-            mav.addObject("petNombre", mas.getPetNombre());
-            mav.addObject("petNacimiento", mas.getPetNacimiento());
-            mav.addObject("petRaza", mas.getPetRaza());
-            mav.addObject("petColor", mas.getPetColor());
+            String sql = "insert into pet(petTipo, petNombre, petNacimiento, petRaza, petColor) values(?,?,?,?,?)";
+            jdbcTemplate.update(sql, pb.getPetTipo(), pb.getPetNombre(), pb.getPetNacimiento(), pb.getPetRaza(), pb.getPetColor());
+            mav.setViewName("redirect:/listPet.htm");
 
             return mav;
         }
     }
-    
-     // Trae la lista entera de la base de datos por medio del select *
+
+    // Trae la lista entera de la base de datos por medio del select *
     @RequestMapping(value = "listPet.htm")
     public ModelAndView listarPet() {
         ModelAndView mav = new ModelAndView();
@@ -82,7 +78,7 @@ public class petController {
         mav.setViewName("views/listPet");
         return mav;
     }
-    
+
     //===================Borrar usuario============================//
     @RequestMapping(value = "deletePet.htm")
     public ModelAndView borrarPet(HttpServletRequest req) {

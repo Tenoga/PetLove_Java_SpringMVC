@@ -40,7 +40,7 @@
                             <td><c:out value="${pet.petRaza}"></c:out></td>
                             <td><c:out value="${pet.petColor}"></c:out></td>
                             <td>
-                                <a href="updatePet.htm?id=${pet.id}" class="btn btn-warning">Actualizar</a>
+                                <a href="updatePet.htm?id=${pet.id}" class="btn btn-warning" alert="ARE YOU SURE ABOUT THAT">Actualizar</a>
                                 <a href="deletePet.htm?id=${pet.id}" class="btn btn-danger">Borrar</a> 
                             <td>
                         </tr>    

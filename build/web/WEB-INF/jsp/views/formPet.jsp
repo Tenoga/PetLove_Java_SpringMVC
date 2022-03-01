@@ -17,19 +17,6 @@
     </head>
     <body>
         <%@include file="components/Nav.jsp" %>
-        <%
-                        try {
-                    %>
-                    <sql:setDataSource driver="com.mysql.jdbc.Driver"
-                                       url="jdbc:mysql://localhost:3306/petlove"
-                                       user="root"
-                                       password=""/>
-                    Conexión a base de datos exitosa
-                    <%
-                        } catch (Exception ex) {
-                            out.print("Conexion a Base de datos fallida: " + ex.getMessage());
-                        }
-                    %>
         <div class="container mt-5">
             <div class="p-4 m-auto w-75 bg-primary bg-opacity-25 rounded">
                 <h1 style="text-align: center;">Crear Mascota</h1>
