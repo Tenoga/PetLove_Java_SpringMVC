@@ -61,6 +61,7 @@
                         </tr>
                     </tbody>
                 </table>
+                <a href="listPet.htm" class="btn btn-danger">Regresar</a>
             </div>
         </div>
     </body>

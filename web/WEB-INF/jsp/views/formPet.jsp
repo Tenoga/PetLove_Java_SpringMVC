@@ -67,7 +67,7 @@
                             <form:button name="enviar" Class="btn btn-success">Enviar</form:button> 
                             </div>
                             <div class="col">
-                                <a href="index.htm" class="btn btn-danger">Regresar</a>                     
+                                <a href="listPet.htm" class="btn btn-danger">Regresar</a>                     
                             </div>
                         </div>
                 </form:form>

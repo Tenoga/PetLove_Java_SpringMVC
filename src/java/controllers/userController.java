@@ -3,15 +3,18 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package controllers;
 
 import Dao.ConectarDB;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.List;
+import javax.servlet.http.HttpServletRequest;
 import models.UsuarioBean;
 import models.UsuarioBeanValidation;
 import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.ResultSetExtractor;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -26,10 +29,10 @@ import org.springframework.web.servlet.ModelAndView;
  */
 @Controller
 public class userController {
-     private UsuarioBeanValidation usuariovalidar;
+
+    private UsuarioBeanValidation usuariovalidar;
     private JdbcTemplate jdbcTemplate;
-    
-    
+
     public userController() {
         this.usuariovalidar = new UsuarioBeanValidation();
         ConectarDB con = new ConectarDB();
@@ -57,23 +60,14 @@ public class userController {
             mav.addObject("ub", new UsuarioBean());
             mav.setViewName("views/formUsuario");
         } else {
-            mav.addObject("ub", ub);
-            mav.setViewName("views/viewUsuario");
+            String sql = "insert into usuario(nombre, correo, edad, telefono) values(?,?,?,?)";
+            jdbcTemplate.update(sql, ub.getNombre(), ub.getCorreo(), ub.getEdad(), ub.getTelefono());
+            mav.setViewName("redirect:/listUsuario.htm");
         }
         return mav;
     }
-
-    //Trae la vista de listUsuario
-//    @RequestMapping(value = "listUsuario.htm", method = RequestMethod.GET)
-//    public ModelAndView listUsuario() {
-//        UsuarioBean vuser = new UsuarioBean();
-//        ModelAndView mav = new ModelAndView();
-//        mav.setViewName("views/listUsuario");
-//        mav.addObject("vuser", vuser);
-//        return mav;
-//    }
-
-    // Trae la lista entera de la base de datos por medio del select *
+    
+    //======Trae la lista entera de la base de datos por medio del select *======//
     @RequestMapping(value = "listUsuario.htm")
     public ModelAndView listarCliente() {
         ModelAndView mav = new ModelAndView();
@@ -84,4 +78,73 @@ public class userController {
         mav.setViewName("views/listUsuario");
         return mav;
     }
+    
+    //===================Borrar usuario============================//
+    @RequestMapping(value = "deleteUsuario.htm")
+    public ModelAndView borrarUsuario(HttpServletRequest req) {
+        ModelAndView mav = new ModelAndView();
+        int id = Integer.parseInt(req.getParameter("id"));
+        String sql = "delete from usuario where id = ?";
+        jdbcTemplate.update(sql, id);
+        mav.setViewName("redirect:/listUsuario.htm");
+        return mav;
+    }
+    
+
+    
+    //===Convierte la lista de Result set  en una clase  Clientebean=====//
+
+    public UsuarioBean getUserById(int id) {
+        UsuarioBean ub = new UsuarioBean();
+        String sql = "select * from cliente where id = " + id;
+        return (UsuarioBean) jdbcTemplate.query(
+                sql, new ResultSetExtractor<UsuarioBean>() {
+                    @Override
+                    public UsuarioBean extractData(ResultSet rs) throws SQLException, DataAccessException {
+                        if (rs.next()) {
+                            ub.setId(rs.getInt("id"));
+                            ub.setNombre(rs.getString("nombre"));
+                            ub.setCorreo(rs.getString("correo"));
+                            ub.setEdad(rs.getString("edad"));
+                            ub.setTelefono(rs.getString("telefono"));
+                        }
+                        return ub;
+                    }
+                }
+        );
+    }
+    
+     //=========metodo POST para enviar los datos a la base de atos======================//
+    //actCliente= Actualizar cliente
+    @RequestMapping(value = "addCliente.htm", method = RequestMethod.POST)
+    public ModelAndView actCliente(UsuarioBean ub) {
+        ModelAndView mav = new ModelAndView();
+        String sql = "update usuario set nombre = ?, correo = ?, edad = ?,"
+                + "telefono = ? where id = ?" + ub.getId();
+        jdbcTemplate.update(sql, ub.getNombre(), ub.getCorreo(), ub.getEdad(), ub.getTelefono(), ub.getId());
+        mav.setViewName("redirect:/listUsuario.htm");
+        return mav;
+    }
+
+    //======================Metodo para Insertar datos en la base de datos=============
+//    @RequestMapping(value = "formUsuario.htm", method = RequestMethod.POST)
+//    public ModelAndView addUsuario(UsuarioBean cli) {
+//        ModelAndView mav = new ModelAndView();
+//        String sql = "insert into usuario(nombre, correo, edad, telefono) values(?,?,?,?)";
+//        jdbcTemplate.update(sql, cli.getNombre(), cli.getCorreo(), cli.getEdad(), cli.getTelefono());
+//        mav.setViewName("redirect:/listUsuario.htm");
+//        return mav;
+//    }
+    //========================================================================================
+    //Trae la vista de listUsuario
+//    @RequestMapping(value = "listUsuario.htm", method = RequestMethod.GET)
+//    public ModelAndView listUsuario() {
+//        UsuarioBean vuser = new UsuarioBean();
+//        ModelAndView mav = new ModelAndView();
+//        mav.setViewName("views/listUsuario");
+//        mav.addObject("vuser", vuser);
+//        return mav;
+//    }
+    //=================================================================================
+   
 }

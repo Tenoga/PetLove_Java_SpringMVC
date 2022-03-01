@@ -18,26 +18,7 @@
     <body>
         <%@include file="components/Nav.jsp" %>
 
-        <c:catch var="errorDB">
-            <sql:setDataSource driver="com.mysql.jdbc.Driver"
-                               url="jdbc:mysql://localhost:3306/petlove"
-                               user="root"
-                               password=""/>
-            <sql:update>
-                INSERT INTO usuario(id, nombre, correo, edad, telefono) VALUES (
-                "${ub.getId()}",
-                "${ub.getNombre()}" ,
-                "${ub.getCorreo()}",
-                "${ub.getEdad()}",
-                "${ub.getTelefono()}"
-                );
-            </sql:update>
-        </c:catch>
-        <c:if test="${not empty errorDB}">
-            <div class="alert alert-danger">
-                <strong>Se produjo un error:</strong> ${errorDB} <br>
-            </div>
-        </c:if>
+        
         <div class="container mt-5">
             <div class="p-4 m-auto w-75 bg-primary bg-opacity-25 rounded">
                 <table class="table">
@@ -59,7 +40,9 @@
                             <td><c:out value="${ub.telefono}"></c:out></td>
                         </tr>
                     </tbody>
+
                 </table>
+                <a href="listUsuario.htm" class="btn btn-danger">Regresar</a>
             </div>
         </div>
     </body>

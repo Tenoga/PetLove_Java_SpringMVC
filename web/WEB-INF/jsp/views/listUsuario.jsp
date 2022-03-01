@@ -26,6 +26,7 @@
                             <th>Correo</th>
                             <th>Edad</th>
                             <th>Telefono</th>
+                            <th>Acción</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -36,6 +37,10 @@
                             <td><c:out value="${user.correo}"></c:out></td>
                             <td><c:out value="${user.edad}"></c:out></td>
                             <td><c:out value="${user.telefono}"></c:out></td>
+                            <td>
+                                <a href="formUsuario.htm?id=${user.id}" class="btn btn-warning">Actualizar</a>
+                                <a href="deleteUsuario.htm?id=${user.id}" class="btn btn-danger">Borrar</a> 
+                            <td>
                         </tr>    
                         </c:forEach>
                     </tbody>

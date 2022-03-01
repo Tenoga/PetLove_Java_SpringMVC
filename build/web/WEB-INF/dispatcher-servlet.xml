@@ -20,11 +20,14 @@
         <property name="mappings">
             <props>
                 <prop key="index.htm">indexController</prop>
-                <prop key="formPet.htm">homeController</prop>
-                <prop key="viewPet.htm">homeController</prop>
+                <prop key="formPet.htm">petController</prop>
+                <prop key="viewPet.htm">petController</prop>
+                <prop key="listPet.htm">petController</prop>
+                <prop key="deletePet.htm">petController</prop>
                 <prop key="formUsuario.htm">userController</prop>
                 <prop key="listUsuario.htm">userController</prop>
                 <prop key="viewUsuario.htm">userController</prop>
+                <prop key="deleteUsuario.htm">userController</prop>
          
             </props>
         </property>
@@ -43,8 +46,7 @@
           p:viewName="index" />
     
     
-    <bean name="homeController" class="controllers.homeController"/>
-    
     <bean name="userController" class="controllers.userController"/>
     
+    <bean name="petController" class="controllers.petController"/>
 </beans>

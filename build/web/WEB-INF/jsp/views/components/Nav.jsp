@@ -24,7 +24,7 @@
                     <a class="nav-link" href="listUsuario.htm">Usuarios</a>
                 </li>
                 <li class="nav-item">
-                     <a class="nav-link" href="formPet.htm">Mascotas</a>
+                     <a class="nav-link" href="listPet.htm">Mascotas</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="#">Adoptar</a>
