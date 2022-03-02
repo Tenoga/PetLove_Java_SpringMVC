@@ -18,14 +18,14 @@
     <body>
         <%@include file="components/Nav.jsp" %>
         <div class="container mt-5">
-            <div class="p-4 m-auto w-75 bg-primary bg-opacity-25 rounded">
+            <div class="p-4 m-auto w-50 bg-primary bg-opacity-25 rounded">
                 <h1 style="text-align: center;">Crear Mascota</h1>
                 <form:form commandName="pet" method="post">
                      
                     <form:errors path ="*" element="div" cssClass="alert alert-danger"></form:errors>
                     <div class="form-group">
                         <form:label path="petTipo">Tipo de Mascota</form:label>
-                        <form:select path="petTipo">
+                        <form:select path="petTipo" class="form-control"  >
                             <form:option value="Canino">Canino</form:option>
                             <form:option value="Felino">Felino</form:option>
                             <form:option value="Ave">Ave</form:option>
@@ -34,22 +34,22 @@
                         </form:select>
                     </div>                    
                     <div class="form-group">
-                        <form:label path="petNombre" cssClass="label-input100">Nombre de la mascota:</form:label>
-                        <form:input path="petNombre" cssClass="input100"></form:input>
+                        <form:label path="petNombre">Nombre de la mascota:</form:label>
+                        <form:input path="petNombre" class="form-control" placeholder="Misifu"></form:input>
                         </div>
                         <div class="form-group">
                         <form:label path="petNacimiento">Edad (años):</form:label>
-                        <form:input path="petNacimiento"></form:input>
+                        <form:input path="petNacimiento" class="form-control" placeholder="15"></form:input>
                         </div>
                         <div class="form-group">
                         <form:label path="petRaza">Raza/Tipo:</form:label>
-                        <form:input path="petRaza"></form:input>
+                        <form:input path="petRaza" class="form-control" placeholder="Gato"></form:input>
                         </div>
                         <div class="form-group">
                         <form:label path="petColor">Color:</form:label>
-                        <form:input path="petColor"></form:input>
+                        <form:input path="petColor" class="form-control" placeholder="Gris"></form:input>
                         </div>
-                        <div class="row">
+                        <div class="row m-4">
                             <div class="col">
                             <form:button name="enviar" Class="btn btn-success">Enviar</form:button> 
                             </div>

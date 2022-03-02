@@ -90,7 +90,18 @@ public class userController {
         return mav;
     }
     
-
+//======================Actualizar cliente==================//
+    @RequestMapping(value = "updateCliente.htm", method = RequestMethod.GET)
+    public ModelAndView actualizarCliente(HttpServletRequest req) {
+        ModelAndView mav = new ModelAndView();
+        int id = Integer.parseInt(req.getParameter("id"));
+        String sql = "select * from usuario where id = ?";
+        UsuarioBean ub = getUserById(id);
+        //(ClienteBean) List datos = jdbcTemplate.queryForList(sql);
+        mav.addObject("usuario", "");
+        mav.setViewName("views/updateCliente");
+        return mav;
+    }
     
     //===Convierte la lista de Result set  en una clase  Clientebean=====//
 
@@ -116,7 +127,7 @@ public class userController {
     
      //=========metodo POST para enviar los datos a la base de atos======================//
     //actCliente= Actualizar cliente
-    @RequestMapping(value = "addCliente.htm", method = RequestMethod.POST)
+    @RequestMapping(value = "formUsuario.htm", method = RequestMethod.POST)
     public ModelAndView actCliente(UsuarioBean ub) {
         ModelAndView mav = new ModelAndView();
         String sql = "update usuario set nombre = ?, correo = ?, edad = ?,"
