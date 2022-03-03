@@ -43,7 +43,7 @@
                         </div>
                         <div class="form-group">
                         <form:label path="petRaza">Raza/Tipo:</form:label>
-                        <form:input path="petRaza" class="form-control" placeholder="Gato"></form:input>
+                        <form:input path="petRaza" class="form-control" placeholder="Criollo"></form:input>
                         </div>
                         <div class="form-group">
                         <form:label path="petColor">Color:</form:label>

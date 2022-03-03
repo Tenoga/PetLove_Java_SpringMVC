@@ -40,8 +40,8 @@
                             <td><c:out value="${pet.petRaza}"></c:out></td>
                             <td><c:out value="${pet.petColor}"></c:out></td>
                             <td>
-                                <a href="updatePet.htm?id=${pet.id}" class="btn btn-warning" alert="ARE YOU SURE ABOUT THAT">Actualizar</a>
-                                <a href="deletePet.htm?id=${pet.id}" class="btn btn-danger">Borrar</a> 
+                                <a href="updatePet.htm?id=${pet.id}" class="btn btn-warning"><img src="https://img.icons8.com/ios/50/000000/pencil.png" width="25px"/></a>
+                                <a href="deletePet.htm?id=${pet.id}" class="btn btn-danger"><img  src="https://img.icons8.com/ios/50/000000/delete--v1.png" width="25px" /></a> 
                             <td>
                         </tr>    
                         </c:forEach>

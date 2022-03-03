@@ -24,10 +24,13 @@
                 <prop key="viewPet.htm">petController</prop>
                 <prop key="listPet.htm">petController</prop>
                 <prop key="deletePet.htm">petController</prop>
+                <prop key="updatePet.htm">petController</prop>
                 <prop key="formUsuario.htm">userController</prop>
                 <prop key="listUsuario.htm">userController</prop>
                 <prop key="viewUsuario.htm">userController</prop>
+                <prop key="updateCliente.htm">userController</prop>
                 <prop key="deleteUsuario.htm">userController</prop>
+                <prop key="formAdopcion.htm">adoptController</prop>
          
             </props>
         </property>
@@ -49,4 +52,6 @@
     <bean name="userController" class="controllers.userController"/>
     
     <bean name="petController" class="controllers.petController"/>
+    
+    <bean name="adoptController" class="controllers.adoptController"/>
 </beans>

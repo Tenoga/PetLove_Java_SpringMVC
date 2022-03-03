@@ -1,0 +1,35 @@
+/--------------------PETLOVE DB---------------------------------/
+
+cd mysql
+
+MySQL -h localhost -u root -p
+
+create database petlove;
+
+
+create table usuario
+(
+	id int(20) PRIMARY key not null auto_increment,
+	nombre varchar(255) not null,
+	correo varchar(255) not null,
+	edad int(20) not null,
+	telefono varchar(255) not null
+);
+
+create table pet(
+	id int(20) PRIMARY key not null auto_increment,
+	petTipo varchar(255) not null,
+	petNombre varchar(255) not null,
+	petNacimiento int(20) not null,
+	petRaza varchar(255) not null,
+	petColor varchar(255) not null
+);
+
+create table adopt(
+	adopt_id int(20) PRIMARY key not null auto_increment,
+	user_id int(20) not null,
+	pet_id int(20) not null,
+	adopt_date date not null,
+	Foreign key(user_id) references usuario(id),
+	Foreign key(pet_id) references pet(id)
+);

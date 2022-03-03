@@ -6,11 +6,16 @@
 package controllers;
 
 import Dao.ConectarDB;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import models.PetBean;
 import models.PetBeanValidation;
+import models.UsuarioBean;
+import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.ResultSetExtractor;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -31,7 +36,6 @@ public class petController {
 
     public petController() {
         this.petValidar = new PetBeanValidation();
-
         ConectarDB con = new ConectarDB();
         jdbcTemplate = new JdbcTemplate(con.conDB());
     }
@@ -89,4 +93,51 @@ public class petController {
         mav.setViewName("redirect:/listPet.htm");
         return mav;
     }
+    //======================Actualizar mascota==================//
+    @RequestMapping(value = "updatePet.htm", method = RequestMethod.GET)
+    public ModelAndView actualizarPet(HttpServletRequest req) {
+        ModelAndView mav = new ModelAndView();
+        int id = Integer.parseInt(req.getParameter("id"));
+        PetBean ub = getPetById(id);
+        mav.addObject("pet", ub);
+        mav.setViewName("views/updatePet");
+        return mav;
+    }
+    
+    //===Convierte la lista de Result set  en una clase  Clientebean=====//
+
+    public PetBean getPetById(int id) {
+        PetBean ub = new PetBean();
+        String sql = "select * from pet where id = " + id;
+        return (PetBean) jdbcTemplate.query(
+                sql, new ResultSetExtractor<PetBean>() {
+                    @Override
+                    public PetBean extractData(ResultSet rs) throws SQLException, DataAccessException {
+                        if (rs.next()) {
+                            ub.setId(rs.getInt("id"));
+                            ub.setPetTipo(rs.getString("petTipo"));
+                            ub.setPetNombre(rs.getString("petNombre"));
+                            ub.setPetNacimiento(rs.getInt("petNacimiento"));
+                            ub.setPetRaza(rs.getString("petRaza"));
+                            ub.setPetColor(rs.getString("petColor"));
+                        }
+                        return ub;
+                    }
+                }
+        );
+    }
+    
+//     //=========metodo POST para enviar los datos a la base de atos======================//
+//    //actCliente= Actualizar cliente
+    @RequestMapping(value = "updatePet.htm", method = RequestMethod.POST)
+    public ModelAndView actPet(PetBean ub) {
+        ModelAndView mav = new ModelAndView();
+        String sql = "update pet set petTipo = ?, petNombre = ?, petNacimiento = ?,"
+                + "petRaza = ?, petColor = ? where id = " + ub.getId();
+        jdbcTemplate.update(sql, ub.getPetTipo(), ub.getPetNombre(), ub.getPetNacimiento(), ub.getPetRaza(), ub.getPetColor());
+        mav.setViewName("redirect:/listPet.htm");
+        return mav;
+    }
+
+    
 }

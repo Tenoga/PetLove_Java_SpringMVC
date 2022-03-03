@@ -30,8 +30,8 @@ import org.springframework.web.servlet.ModelAndView;
 @Controller
 public class userController {
 
-    private UsuarioBeanValidation usuariovalidar;
-    private JdbcTemplate jdbcTemplate;
+    private final UsuarioBeanValidation usuariovalidar;
+    private final JdbcTemplate jdbcTemplate;
 
     public userController() {
         this.usuariovalidar = new UsuarioBeanValidation();
@@ -53,7 +53,9 @@ public class userController {
             @ModelAttribute("usuario") UsuarioBean ub,
             BindingResult result,
             SessionStatus status
-    ) {
+    ) 
+    
+    {
         ModelAndView mav = new ModelAndView();
         this.usuariovalidar.validate(ub, result);
         if (result.hasErrors()) {
@@ -95,10 +97,8 @@ public class userController {
     public ModelAndView actualizarCliente(HttpServletRequest req) {
         ModelAndView mav = new ModelAndView();
         int id = Integer.parseInt(req.getParameter("id"));
-        String sql = "select * from usuario where id = ?";
         UsuarioBean ub = getUserById(id);
-        //(ClienteBean) List datos = jdbcTemplate.queryForList(sql);
-        mav.addObject("usuario", "");
+        mav.addObject("usuario", ub);
         mav.setViewName("views/updateCliente");
         return mav;
     }
@@ -107,7 +107,7 @@ public class userController {
 
     public UsuarioBean getUserById(int id) {
         UsuarioBean ub = new UsuarioBean();
-        String sql = "select * from cliente where id = " + id;
+        String sql = "select * from usuario where id = " + id;
         return (UsuarioBean) jdbcTemplate.query(
                 sql, new ResultSetExtractor<UsuarioBean>() {
                     @Override
@@ -125,37 +125,16 @@ public class userController {
         );
     }
     
-     //=========metodo POST para enviar los datos a la base de atos======================//
-    //actCliente= Actualizar cliente
-    @RequestMapping(value = "formUsuario.htm", method = RequestMethod.POST)
+//     //=========metodo POST para enviar los datos a la base de atos======================//
+//    //actCliente= Actualizar cliente
+    @RequestMapping(value = "updateCliente.htm", method = RequestMethod.POST)
     public ModelAndView actCliente(UsuarioBean ub) {
         ModelAndView mav = new ModelAndView();
         String sql = "update usuario set nombre = ?, correo = ?, edad = ?,"
-                + "telefono = ? where id = ?" + ub.getId();
-        jdbcTemplate.update(sql, ub.getNombre(), ub.getCorreo(), ub.getEdad(), ub.getTelefono(), ub.getId());
+                + "telefono = ? where id = " + ub.getId();
+        jdbcTemplate.update(sql, ub.getNombre(), ub.getCorreo(), ub.getEdad(), ub.getTelefono());
         mav.setViewName("redirect:/listUsuario.htm");
         return mav;
     }
 
-    //======================Metodo para Insertar datos en la base de datos=============
-//    @RequestMapping(value = "formUsuario.htm", method = RequestMethod.POST)
-//    public ModelAndView addUsuario(UsuarioBean cli) {
-//        ModelAndView mav = new ModelAndView();
-//        String sql = "insert into usuario(nombre, correo, edad, telefono) values(?,?,?,?)";
-//        jdbcTemplate.update(sql, cli.getNombre(), cli.getCorreo(), cli.getEdad(), cli.getTelefono());
-//        mav.setViewName("redirect:/listUsuario.htm");
-//        return mav;
-//    }
-    //========================================================================================
-    //Trae la vista de listUsuario
-//    @RequestMapping(value = "listUsuario.htm", method = RequestMethod.GET)
-//    public ModelAndView listUsuario() {
-//        UsuarioBean vuser = new UsuarioBean();
-//        ModelAndView mav = new ModelAndView();
-//        mav.setViewName("views/listUsuario");
-//        mav.addObject("vuser", vuser);
-//        return mav;
-//    }
-    //=================================================================================
-   
 }

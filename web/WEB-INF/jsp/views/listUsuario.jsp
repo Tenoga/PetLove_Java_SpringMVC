@@ -38,8 +38,8 @@
                             <td><c:out value="${user.edad}"></c:out></td>
                             <td><c:out value="${user.telefono}"></c:out></td>
                             <td>
-                                <a href="formUsuario.htm?id=${user.id}" class="btn btn-warning">Actualizar</a>
-                            <a href="deleteUsuario.htm?id=${user.id}" class="btn btn-danger">Borrar</a>
+                                <a href="updateCliente.htm?id=${user.id}" class="btn btn-warning"><img src="https://img.icons8.com/ios/50/000000/pencil.png" width="25px"/></a>
+                                <a href="deleteUsuario.htm?id=${user.id}" class="btn btn-danger"><img  src="https://img.icons8.com/ios/50/000000/delete--v1.png" width="25px" /></a>
                             <td>
                         </tr>    
                         </c:forEach>
