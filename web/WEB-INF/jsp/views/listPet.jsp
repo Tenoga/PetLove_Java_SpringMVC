@@ -17,7 +17,6 @@
         <div class="container mt-5">
             <div class="p-4 m-auto w-75 bg-primary bg-opacity-25 rounded">
                 <h1 style="text-align: center;">Lista de Usuarios</h1>
-                <a href="formPet.htm" class="btn btn-primary">Crear Mascota</a>
                 <table id="user" class="table table-striped table-bordered" style="width:100%">
                     <thead>
                         <tr>
@@ -45,6 +44,7 @@
                             <td>
                         </tr>    
                         </c:forEach>
+                        <td><a href="formPet.htm" class="btn btn-info"><img src="https://img.icons8.com/external-line-adri-ansyah/64/000000/external-plus-essentials-ui-line-adri-ansyah.png" width="25px" height="25px"/></a></td>
                     </tbody>
                 </table>
             </div>

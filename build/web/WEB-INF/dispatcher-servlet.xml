@@ -20,16 +20,20 @@
         <property name="mappings">
             <props>
                 <prop key="index.htm">indexController</prop>
+                <!--=============== Mascotas / Pet ======================-->
                 <prop key="formPet.htm">petController</prop>
                 <prop key="viewPet.htm">petController</prop>
                 <prop key="listPet.htm">petController</prop>
                 <prop key="deletePet.htm">petController</prop>
                 <prop key="updatePet.htm">petController</prop>
+                <!--=============== Usuarios / User ======================-->
                 <prop key="formUsuario.htm">userController</prop>
                 <prop key="listUsuario.htm">userController</prop>
                 <prop key="viewUsuario.htm">userController</prop>
                 <prop key="updateCliente.htm">userController</prop>
                 <prop key="deleteUsuario.htm">userController</prop>
+                
+                <!--=============== Adopcion / Adopt ======================-->
                 <prop key="formAdopcion.htm">adoptController</prop>
          
             </props>
@@ -49,9 +53,12 @@
           p:viewName="index" />
     
     
+    <!--=============== Usuarios / User ======================-->
     <bean name="userController" class="controllers.userController"/>
     
+     <!--=============== Mascotas / Pet ======================-->
     <bean name="petController" class="controllers.petController"/>
     
+    <!--=============== Adopcion / Adopt ======================-->
     <bean name="adoptController" class="controllers.adoptController"/>
 </beans>

@@ -19,7 +19,7 @@ import org.springframework.web.servlet.ModelAndView;
  */
 public class adoptController {
     
-    @RequestMapping(value="formAdopcion.htm", method = RequestMethod.GET)
+    @RequestMapping(value="listUsuario.htm", method = RequestMethod.GET)
     public ModelAndView formAdopt(){
         ModelAndView mav = new ModelAndView();
         AdoptBean adopt = new AdoptBean();
