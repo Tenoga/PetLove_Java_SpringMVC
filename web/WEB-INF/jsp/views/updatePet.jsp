@@ -51,10 +51,10 @@
                         </div>
                         <div class="row m-4">
                             <div class="col">
-                            <form:button name="enviar" Class="btn btn-success">Enviar</form:button> 
+                            <form:button name="enviar" Class="btn btn-success">Actualizar</form:button> 
                             </div>
                             <div class="col">
-                                <a href="listPet.htm" class="btn btn-danger">Regresar</a>                     
+                                <a href="listPet.htm" class="btn btn-danger">Cancelar</a>                     
                             </div>
                         </div>
                 </form:form>

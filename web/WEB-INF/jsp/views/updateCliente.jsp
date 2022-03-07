@@ -39,10 +39,10 @@
                         </div>
                         <div class="row m-4">
                             <div class="col">
-                            <form:button name="Enviar" value="Crear Usuario" class="btn btn-success" >Crear</form:button>                         
+                            <form:button name="Enviar" value="Crear Usuario" class="btn btn-success" >Actualizar</form:button>                         
                             </div>
                             <div class="col">
-                                <a href="listUsuario.htm" class="btn btn-danger">Regresar</a>                     
+                                <a href="listUsuario.htm" class="btn btn-danger">Cancelar</a>                     
                             </div>
                         </div>
                 </form:form>

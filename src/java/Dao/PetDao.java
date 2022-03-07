@@ -22,7 +22,7 @@ public class PetDao {
     public List consultarAdoptPet(){
         List datos = new ArrayList();
         this.jdbcTemplate = new JdbcTemplate(con.conDB());
-        String sql = "select pet_id, petNombre from pet";
+        String sql = "select * from pet";
         datos = this.jdbcTemplate.queryForList(sql);
         return datos;
     }

@@ -35,6 +35,8 @@
                 
                 <!--=============== Adopcion / Adopt ======================-->
                 <prop key="formAdopcion.htm">adoptController</prop>
+                <prop key="listAdopcion.htm">adoptController</prop>
+                <prop key="deleteAdopt.htm">adoptController</prop>
          
             </props>
         </property>
@@ -45,13 +47,8 @@
           p:prefix="/WEB-INF/jsp/"
           p:suffix=".jsp" />
 
-    <!--
-    The index controller.
-    -->
-    <bean name="indexController"
-          class="org.springframework.web.servlet.mvc.ParameterizableViewController"
-          p:viewName="index" />
-    
+    <!--=============== Index / IndexController ======================-->
+    <bean name="indexController"  class="org.springframework.web.servlet.mvc.ParameterizableViewController"  p:viewName="index" />
     
     <!--=============== Usuarios / User ======================-->
     <bean name="userController" class="controllers.userController"/>
@@ -61,4 +58,5 @@
     
     <!--=============== Adopcion / Adopt ======================-->
     <bean name="adoptController" class="controllers.adoptController"/>
+    
 </beans>
