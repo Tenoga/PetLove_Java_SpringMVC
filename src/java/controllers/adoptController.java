@@ -56,7 +56,7 @@ public class adoptController {
         UsuarioDao userDao = new UsuarioDao();
         PetDao petDao = new PetDao();
         int datos = adoptDao.consultarIdAdopcion();
-        mav.addObject("adopt", datos);
+        mav.addObject("adopt", adopt);
         List user = userDao.ConsultarUsuario() ;
         mav.addObject("user", user);
         List pet = petDao.consultarAdoptPet();

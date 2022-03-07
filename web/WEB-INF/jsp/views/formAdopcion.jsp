@@ -17,7 +17,7 @@
         <div class="container mt-5">
             <div class="p-4 m-auto w-50 bg-primary bg-opacity-25 rounded">
                 <h1 style="text-align: center;">Adoptar Mascota ${datos.pet_id}</h1>
-                <form:form commandName="adopt" var="datos" method="post">
+                <form:form commandName="adopt"  method="post">
                     <form:errors path ="*" element="div" cssClass="alert alert-danger"></form:errors>
 
                         <!--------------------------------------------------------------------->
