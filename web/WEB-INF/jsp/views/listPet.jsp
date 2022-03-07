@@ -9,6 +9,7 @@
 <html>
     <head>
         <%@include file="components/Bootstrap.jsp" %>
+        <%@include file="components/FormStyle.jsp" %>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Pet List</title>
     </head>

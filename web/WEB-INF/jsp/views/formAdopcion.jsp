@@ -9,15 +9,17 @@
 <html>
     <head>
         <%@include file="components/Bootstrap.jsp" %>
+        <%@include file="components/FormStyle.jsp" %>
+        <link href='https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css' rel='stylesheet'>
+        <script type='text/javascript' src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js'></script>
+        <script type='text/javascript' src='https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js'></script>
+        <script type='text/javascript' src='https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js'></script>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Adopt</title>
     </head>
     <body>
         <%@include file="components/Nav.jsp" %>
-        <div class="container mt-5">
-            <div class="p-4 m-auto w-50 bg-primary bg-opacity-25 rounded">
-                <h1 style="text-align: center;">Adoptar Mascota ${datos.pet_id}</h1>
-                <form:form commandName="adopt"  method="post">
+        <form:form commandName="adopt"  method="post">
                     <form:errors path ="*" element="div" cssClass="alert alert-danger"></form:errors>
 
                         <!--------------------------------------------------------------------->
@@ -54,7 +56,5 @@
                         <!--------------------------------------------------------------------->
                     <form:button name="Submit" value="" class="btn btn-success" >Adoptar</form:button>
                 </form:form>
-            </div>
-        </div>
     </body>
 </html>

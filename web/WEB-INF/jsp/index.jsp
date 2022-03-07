@@ -6,6 +6,8 @@
     <head>
         <!--Importacion de Bootstrap-->
         <%@include file="views/components/Bootstrap.jsp" %>
+        <!--Importacion de Estilos-->
+        <%@include file="views/components/FormStyle.jsp" %>
         <!---------------------------->
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Pet Love</title>

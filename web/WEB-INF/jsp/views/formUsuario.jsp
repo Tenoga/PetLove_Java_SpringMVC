@@ -12,13 +12,57 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <%@include file="components/Bootstrap.jsp" %>
+        <%@include file="components/FormStyle.jsp" %>
         <title>Crear Usuario</title>
     </head>
     <body>
         <%@include file="components/Nav.jsp" %>
-        <div class="container mt-5">
-            <div class="p-4 m-auto w-50 bg-primary bg-opacity-25 rounded">
-                <h1 style="text-align: center;">Crear Usuario</h1>
+        <div class=" register">
+            <div class="row">
+                <div class="col-md-3 register-left">
+
+
+                    <img src='<c:url value="public/img/petIcon.png"></c:url>'> </img>
+                        <h3>Adopción</h3>
+                        <p>Estas a unos cuantos clicks de adoptar tu mascota!</p>
+                        <!--Boton de login sin usar-->
+                        <!--<input type="submit" name="" value="Login"/><br/>-->
+                    </div>
+                    <div class="col-md-9 register-right">
+                        <div class="tab-content" id="myTabContent">
+                            <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+                                <h3 class="register-heading">Adopta tu Mascota</h3>
+                                <div class="row register-form">
+                                    <div class="col-md-6">
+                                        <img src='<c:url value="public/img/pets.png"></c:url>' width="450px"> </img>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <input type="text" class="form-control" placeholder="Nombre de Usuario *" value="" />
+                                        </div>
+                                        <div class="form-group">
+                                            <input type="text" class="form-control" placeholder="Correo *" value="" />
+                                        </div>
+                                        <div class="form-group">
+                                            <input type="email" class="form-control" placeholder="Correo *" value="" />
+                                        </div>
+                                        <div class="form-group">
+                                            <input type="text" minlength="10" maxlength="10" name="txtEmpPhone" class="form-control" placeholder="Telefono *" value="" />
+                                        </div>
+                                        <input type="submit" class="btnRegister"  value="Adoptar"/>
+                                        
+                                        
+                                    </div>
+                                    
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="container mt-5">
+                <div class="p-4 m-auto w-50 bg-primary bg-opacity-25 rounded">
+                    <h1 style="text-align: center;">Crear Usuario</h1>
                 <form:form commandName="usuario" method="POST">
                     <form:errors path = "*" element="div" cssClass="alert alert-danger"></form:errors>
                         <div class="form-group">
