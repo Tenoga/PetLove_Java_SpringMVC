@@ -4,7 +4,10 @@
     Author     : Pipe
 --%>
 <style>
-
+    html, body {
+        max-width: 100%;
+        overflow-x: hidden;
+    }
 
     body {
         background: -webkit-linear-gradient(left, #3931af, #00c6ff);
