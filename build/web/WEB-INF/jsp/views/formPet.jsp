@@ -18,48 +18,69 @@
     </head>
     <body>
         <%@include file="components/Nav.jsp" %>
-        <div class="container mt-5">
-            <div class="p-4 m-auto w-50 bg-primary bg-opacity-25 rounded">
-                <h1 style="text-align: center;">Crear Mascota</h1>
-                <form:form commandName="pet" method="post">
-                     
-                    <form:errors path ="*" element="div" cssClass="alert alert-danger"></form:errors>
-                    <div class="form-group">
-                        <form:label path="petTipo">Tipo de Mascota</form:label>
-                        <form:select path="petTipo" class="form-control"  >
-                            <form:option value="Canino">Canino</form:option>
-                            <form:option value="Felino">Felino</form:option>
-                            <form:option value="Ave">Ave</form:option>
-                            <form:option value="Pez">Pez</form:option>
-                            <form:option value="Roedor">Roedor</form:option>
-                        </form:select>
-                    </div>                    
-                    <div class="form-group">
-                        <form:label path="petNombre">Nombre de la mascota:</form:label>
-                        <form:input path="petNombre" class="form-control" placeholder="Misifu"></form:input>
-                        </div>
-                        <div class="form-group">
-                        <form:label path="petNacimiento">Edad (años):</form:label>
-                        <form:input path="petNacimiento" class="form-control" placeholder="15"></form:input>
-                        </div>
-                        <div class="form-group">
-                        <form:label path="petRaza">Raza/Tipo:</form:label>
-                        <form:input path="petRaza" class="form-control" placeholder="Criollo"></form:input>
-                        </div>
-                        <div class="form-group">
-                        <form:label path="petColor">Color:</form:label>
-                        <form:input path="petColor" class="form-control" placeholder="Gris"></form:input>
-                        </div>
-                        <div class="row m-4">
-                            <div class="col">
-                            <form:button name="enviar" Class="btn btn-success">Enviar</form:button> 
+        <div class=" register">
+            <div class="row">
+                <div class="col-md-3 register-left">
+                    <img src='<c:url value="public/img/petIcon.png"></c:url>'> </img>
+                        <h3>Mascota</h3>
+                        <p>Estas a unos cuantos clicks de crear tu usuario!</p>
+                        <!--Boton de login sin usar-->
+                        <!--<input type="submit" name="" value="Login"/><br/>-->
+                    </div>
+                    <div class="col-md-9 register-right">
+                        <div class="tab-content" id="myTabContent">
+                            <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+                                <h3 class="register-heading display-4">Crear Mascota</h3>
+                                <div class="row register-form">
+                                    <div class="col-md-6">
+                                        <img src='<c:url value="public/img/pets.png"></c:url>' width="450px"> </img>
+                                    </div>
+                                    <div class="col-md-6">
+                                    <form:form commandName="pet" method="POST">
+                                        <form:errors path = "*" element="div" cssClass="alert alert-danger"></form:errors>
+                                            <div class="form-group">
+                                            <form:label path="petTipo">Tipo de Mascota</form:label>
+                                            <form:select path="petTipo"  class="form-select" aria-label="Default select example">
+                                                <form:option value="Canino">Canino</form:option>
+                                                <form:option value="Felino">Felino</form:option>
+                                                <form:option value="Ave">Ave</form:option>
+                                                <form:option value="Pez">Pez</form:option>
+                                                <form:option value="Roedor">Roedor</form:option>
+                                            </form:select>  
+                                        </div>
+                                        <div class="form-group">
+                                            <form:label path="petNombre">Nombre de la mascota:</form:label>
+                                            <form:input path="petNombre" class="form-control" placeholder="Misifu" value=""></form:input>
+                                            </div>
+                                            <div class="form-group">
+                                            <form:label path="petNacimiento">Edad (años):</form:label>
+                                            <form:input path="petNacimiento" class="form-control" placeholder="15" value=""></form:input>
+                                            </div>
+                                            <div class="form-group">
+                                            <form:label path="petRaza">Raza/Tipo:</form:label>
+                                            <form:input path="petRaza" class="form-control" placeholder="Criollo" value=""></form:input>
+                                            </div>
+                                            <div class="form-group">
+                                            <form:label path="petColor">Color:</form:label>
+                                            <form:input path="petColor" class="form-control" placeholder="Gris" value=""></form:input>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col">
+                                                    <button type="submit" class="btnRegister">Crear</button>
+                                                </div>
+                                                <div class="col">
+                                                    <a href="listPet.htm" ><button class="btnBack">Regresar</button></a> 
+                                                </div>
+                                            </div>
+                                        </div>
+                                </form:form>
                             </div>
-                            <div class="col">
-                                <a href="listPet.htm" class="btn btn-danger">Regresar</a>                     
-                            </div>
                         </div>
-                </form:form>
+                    </div>
+                </div>
             </div>
         </div>
+        <!--aaaaa-->
+        
     </body>
 </html>

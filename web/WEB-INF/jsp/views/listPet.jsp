@@ -15,23 +15,22 @@
     </head>
     <body>
         <%@include file="components/Nav.jsp" %>
-        <div class="container mt-5">
-            <div class="p-4 m-auto w-75 bg-primary bg-opacity-25 rounded">
-                <h1 style="text-align: center;">Lista de Usuarios</h1>
-                <table id="user" class="table table-striped table-bordered" style="width:100%">
-                    <thead>
-                        <tr>
-                            <th>ID</th>
-                            <th>Tipo</th>
-                            <th>Nombre</th>
-                            <th>Edad (años)</th>
-                            <th>Raza</th>
-                            <th>Color</th>
-                            <th>Acción</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <c:forEach items="${pet}" var="pet">
+        <div class="container listTable">
+            <table class="table">
+                <h1 class="display-3" style="text-align: center; padding-top: 15px;">Lista de Mascotas</h1>
+                <thead>
+                    <tr>
+                        <th scope="col">ID</th>
+                        <th scope="col">Tipo</th>
+                        <th scope="col">Nombre</th>
+                        <th scope="col">Edad (años)</th>
+                        <th scope="col">Raza</th>
+                        <th scope="col">Color</th>
+                        <th scope="col">Acción</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <c:forEach items="${pet}" var="pet">
                         <tr>
                             <td><c:out value="${pet.id}"></c:out></td>
                             <td><c:out value="${pet.petTipo}"></c:out></td>
@@ -39,16 +38,17 @@
                             <td><c:out value="${pet.petNacimiento}"></c:out></td>
                             <td><c:out value="${pet.petRaza}"></c:out></td>
                             <td><c:out value="${pet.petColor}"></c:out></td>
-                            <td>
-                                <a href="updatePet.htm?id=${pet.id}" class="btn btn-warning"><img src="https://img.icons8.com/ios/50/000000/pencil.png" width="25px"/></a>
-                                <a href="deletePet.htm?id=${pet.id}" class="btn btn-danger"><img  src="https://img.icons8.com/ios/50/000000/delete--v1.png" width="25px" /></a> 
-                            <td>
+                                <td>
+                                    <a href="updatePet.htm?id=${pet.id}" class="btn btn-warning" style="border-radius: 13px;"><img src="https://img.icons8.com/ios/50/000000/pencil.png" width="25px"/></a>
+                                    <a href="deletePet.htm?id=${pet.id}" class="btn btn-danger" style="border-radius: 13px;"><img  src="https://img.icons8.com/ios/50/000000/delete--v1.png" width="25px" /></a> 
+                            </td>
                         </tr>    
-                        </c:forEach>
-                        <td><a href="formPet.htm" class="btn btn-info"><img src="https://img.icons8.com/external-line-adri-ansyah/64/000000/external-plus-essentials-ui-line-adri-ansyah.png" width="25px" height="25px"/></a></td>
-                    </tbody>
-                </table>
-            </div>
+                    </c:forEach>
+                    <tr>
+                        <td><a href="formPet.htm" class="rounded-circle"><img src="public/img/iconAdd.png"/></a></td>
+                    </tr>
+                </tbody>
+            </table>
         </div>
     </body>
 </html>

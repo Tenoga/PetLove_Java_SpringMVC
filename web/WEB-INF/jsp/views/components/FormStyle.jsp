@@ -9,7 +9,13 @@
     body {
         background: -webkit-linear-gradient(left, #3931af, #00c6ff);
     }
-
+    /*===========Template Table============*/
+    .listTable {
+        background: #f8f9fa;
+        padding-left: 20px;
+        padding-right: 20px;
+        border-radius: 25px ;
+    }
     .nav-link{
         color: #ffffff;
     }
@@ -17,8 +23,6 @@
         color: #ffffff;
     }
     .register {
-
-        margin-top: 3%;
         padding: 3%;
     }
 
@@ -36,8 +40,8 @@
         background: #f8f9fa;
         font-weight: bold;
         color: #383d41;
-        margin-top: 30%;
-        margin-bottom: 3%;
+        margin-top: 8%;
+        margin-bottom: 6%;
         cursor: pointer;
     }
 
@@ -87,7 +91,7 @@
     }
 
     .btnRegister {
-        float: right;
+
         margin-top: 10%;
         border: none;
         border-radius: 1.5rem;
@@ -99,7 +103,7 @@
         cursor: pointer;
     }
     .btnBack {
-        float: right;
+
         margin-top: 10%;
         border: none;
         border-radius: 1.5rem;
@@ -146,4 +150,47 @@
         margin-top: 8%;
         margin-bottom: -15%;
         color: #495057;
-    }</style>
+    }
+    /*========Parallax=========*/
+    .parallax {
+        /* The image used */
+        background-image: url("public/img/indexPet.jpg");
+
+        /* Set a specific height */
+        min-height: 600px;
+
+        /* Create the parallax scrolling effect */
+        background-attachment: fixed;
+        background-position: center;
+        background-repeat: no-repeat;
+        background-size: cover;
+    }
+    .parallax2 {
+        /* The image used */
+        background-image: url("public/img/indexPet2.jpg");
+
+        /* Set a specific height */
+        min-height: 600px;
+
+        /* Create the parallax scrolling effect */
+        background-attachment: fixed;
+        background-position: center;
+        background-repeat: no-repeat;
+        background-size: cover;
+    }
+    /*=======IndexCard=======*/
+    .indexCard {
+        position: relative;
+        display: -ms-flexbox;
+        display: flex;
+        -ms-flex-direction: column;
+        flex-direction: column;
+        min-width: 0;
+        word-wrap: break-word;
+        background-color: #F0F0F0;
+        background-clip: border-box;
+        border: 1px solid rgba(0,0,0,.125);
+        border-radius: 0.8rem;
+    }
+
+</style>

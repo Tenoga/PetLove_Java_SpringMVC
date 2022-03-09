@@ -15,37 +15,36 @@
     </head>
     <body>
         <%@include file="components/Nav.jsp" %>
-        <div class="container mt-5">
-            <div class="p-4 m-auto w-75 bg-primary bg-opacity-25 rounded">
-                <h1 style="text-align: center;">Lista de Adopciones</h1>
-                <table id="user" class="table table-striped table-bordered" style="width:100%">
-                    <thead>
-                        <tr>
-                            <th>ID Adopcion</th>
-                            <th>ID Usuario</th>
-                            <th>ID Mascota</th>
-                            <th>Fecha de Adopcion</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <c:forEach items="${adopt}" var="datos">
+        <div class="container listTable">
+            <table class="table">
+                <h1 class="display-3" style="text-align: center; padding-top: 15px;">Lista de Adopciones</h1>
+                <thead>
+                    <tr>
+                        <th scope="col">ID Adopcion</th>
+                        <th scope="col">ID Usuario</th>
+                        <th scope="col">ID Mascota</th>
+                        <th scope="col">Fecha de Adopcion</th>
+                        <th scope="col">Acción</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <c:forEach items="${adopt}" var="datos">
                         <tr>
                             <td><c:out value="${datos.adopt_id}"></c:out></td>
                             <td><c:out value="${datos.user_id}"></c:out></td>
                             <td><c:out value="${datos.pet_id}"></c:out></td>
                             <td><c:out value="${datos.adopt_date}"></c:out></td>
-                            <td>
-                                <a href="updateAdopt.htm?id=${datos.id}" class="btn btn-warning"><img src="https://img.icons8.com/ios/50/000000/pencil.png" width="25px"/></a>
-                                <a href="deleteAdopt.htm?id=${datos.adopt_id}" class="btn btn-danger"><img  src="https://img.icons8.com/ios/50/000000/delete--v1.png" width="25px" /></a>
-                            <td>
+                                <td>
+                                    <a href="updateAdopt.htm?id=${datos.id}" class="btn btn-warning" style="border-radius: 13px;"><img src="https://img.icons8.com/ios/50/000000/pencil.png" width="25px"/></a>
+                                    <a href="deleteAdopt.htm?id=${datos.adopt_id}" class="btn btn-danger" style="border-radius: 13px;"><img  src="https://img.icons8.com/ios/50/000000/delete--v1.png" width="25px" /></a>
+                            </td>
                         </tr>    
-                        </c:forEach>
-                        <tr>
-                            <td><a href="formAdopcion.htm" class="btn btn-info"><img src="https://img.icons8.com/external-line-adri-ansyah/64/000000/external-plus-essentials-ui-line-adri-ansyah.png" width="25px" height="25px"/></a></td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-        </div>
+                    </c:forEach>
+                    <tr>
+                        <td><a href="formAdopcion.htm" class="rounded-circle"><img src="public/img/iconAdd.png"/></a></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>     
     </body>
 </html>
