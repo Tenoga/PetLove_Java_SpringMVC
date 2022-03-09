@@ -6,7 +6,6 @@
 
 package Dao;
 
-import java.util.ArrayList;
 import java.util.List;
 import org.springframework.jdbc.core.JdbcTemplate;
 
@@ -20,7 +19,7 @@ public class PetDao {
     
     //-------------------Mostrar Listado de Mascotas-----------------//
     public List consultarAdoptPet(){
-        List datos = new ArrayList();
+        List datos;
         this.jdbcTemplate = new JdbcTemplate(con.conDB());
         String sql = "select * from pet";
         datos = this.jdbcTemplate.queryForList(sql);

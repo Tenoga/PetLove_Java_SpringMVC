@@ -48,7 +48,7 @@
 
                     <form:label path="pet_id">Mascota</form:label>
                     <form:select path="pet_id" class="form-control">
-                        <c:forEach  items="${pet}" var="datos">
+                        <c:forEach  items="${pet}" var="pet">
                             <option value="${pet.id}">${pet.petNombre}</option>
                         </c:forEach>
                     </form:select>

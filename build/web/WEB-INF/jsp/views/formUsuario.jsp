@@ -60,7 +60,7 @@
                                                     <button type="submit" class="btnRegister">Crear</button>
                                                 </div>
                                                 <div class="col">
-                                                    <a href="listUsuario.htm" ><button class="btnBack">Regresar</button></a> 
+                                                    <a href="listUsuario.htm" class="btnBack btn" >Regresar</a> 
                                                 </div>
                                             </div>
                                         </div>

@@ -21,7 +21,7 @@ public class AdoptBeanDao {
     public List ConsultarAdopcion() {
         List adopt = new ArrayList();
         this.jdbcTemplate = new JdbcTemplate(con.conDB());
-        String sql = "select * from adopt";
+        String sql = "select pet.id, adopt.adopt_date, usuario.nombre, pet.petNombre from usuario, pet, adopt where pet.id= adopt.pet_id and usuario.id= adopt.user_id;";
         adopt = this.jdbcTemplate.queryForList(sql);
         return adopt;
     }

@@ -30,11 +30,18 @@ public class adoptController {
 
     private final AdoptBeanValidation adoptvalidar;
     private final JdbcTemplate jdbcTemplate;
-
+    private final AdoptBeanDao adoptDao;
+    private final UsuarioDao userDao;
+    private final PetDao petDao;
+    
+    
     public adoptController() {
         this.adoptvalidar = new AdoptBeanValidation();
         ConectarDB con = new ConectarDB();
         jdbcTemplate = new JdbcTemplate(con.conDB());
+        adoptDao = new AdoptBeanDao();
+        userDao = new UsuarioDao();
+        petDao = new PetDao();
     }
     //===================Trae la Lista Adopcion============================//
     @RequestMapping(value = "listAdopcion.htm", method = RequestMethod.GET)
@@ -52,19 +59,17 @@ public class adoptController {
     public ModelAndView formAdopt() {
         ModelAndView mav = new ModelAndView();
         AdoptBean adopt = new AdoptBean();
-        AdoptBeanDao adoptDao = new AdoptBeanDao();
-        UsuarioDao userDao = new UsuarioDao();
-        PetDao petDao = new PetDao();
-        int datos = adoptDao.consultarIdAdopcion();
         mav.addObject("adopt", adopt);
         List user = userDao.ConsultarUsuario() ;
+        System.out.println("Lista usuario yonoseque"+ user);
         mav.addObject("user", user);
         List pet = petDao.consultarAdoptPet();
+        System.out.println("Lista usuario yonoseque"+ pet);
         mav.addObject("pet", pet);
         mav.setViewName("views/formAdopcion");
         return mav;
     }
-        //===================Insertar Adopcion============================//
+    //===================Insertar Adopcion============================//
     @RequestMapping(value = "formAdopcion.htm", method = RequestMethod.POST)
     public ModelAndView postAdoptForm(
             @ModelAttribute("adopcion") AdoptBean ab,

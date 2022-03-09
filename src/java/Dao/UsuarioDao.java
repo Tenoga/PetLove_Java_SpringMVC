@@ -5,7 +5,6 @@
  */
 package Dao;
 
-import java.util.ArrayList;
 import java.util.List;
 import org.springframework.jdbc.core.JdbcTemplate;
 
@@ -20,7 +19,7 @@ public class UsuarioDao {
 
     //-------------------Mostrar Listado de Usuarios-----------------//
     public List ConsultarUsuario() {
-        List usuario = new ArrayList();
+        List usuario;
         this.jdbcTemplate = new JdbcTemplate(con.conDB());
         String sql = "select * from usuario";
         usuario = this.jdbcTemplate.queryForList(sql);
