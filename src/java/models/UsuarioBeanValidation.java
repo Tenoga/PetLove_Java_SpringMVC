@@ -28,5 +28,6 @@ public class UsuarioBeanValidation implements Validator{
         ValidationUtils.rejectIfEmptyOrWhitespace(errors, "correo", "required.correo", "El campo correo es OBLIGATORIO");
         ValidationUtils.rejectIfEmptyOrWhitespace(errors, "edad", "required.edad", "El campo edad es OBLIGATORIO");
         ValidationUtils.rejectIfEmptyOrWhitespace(errors, "telefono", "required.telefono", "El campo telefono es OBLIGATORIO");
+        ValidationUtils.rejectIfEmptyOrWhitespace(errors, "foto", "required.foto", "LA foto es OBLIGATORIA");
     }
 }

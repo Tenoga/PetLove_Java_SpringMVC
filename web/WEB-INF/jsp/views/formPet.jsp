@@ -34,7 +34,7 @@
                                         <img src='<c:url value="public/img/pets.png"></c:url>' width="450px"> </img>
                                     </div>
                                     <div class="col-md-6">
-                                    <form:form commandName="pet" method="POST">
+                                    <form:form commandName="pet" method="POST" enctype="multipart/form-data">
                                         <form:errors path = "*" element="div" cssClass="alert alert-danger"></form:errors>
                                             <div class="form-group">
                                             <form:label path="petTipo">Tipo de Mascota</form:label>
@@ -61,6 +61,10 @@
                                             <div class="form-group">
                                             <form:label path="petColor">Color:</form:label>
                                             <form:input path="petColor" class="form-control" placeholder="Gris" value=""></form:input>
+                                            </div>
+                                            <div class="form-group">
+                                            <form:label path="petFoto">Foto:</form:label>
+                                            <form:input path="petFoto" class="form-control" placeholder="Foto *" type="file"></form:input>
                                             </div>
                                             <div class="row">
                                                 <div class="col">

@@ -39,7 +39,7 @@
                                         <form:errors path = "*" element="div" cssClass="alert alert-danger"></form:errors>
                                             <div class="form-group">
                                             <form:label path="adopt_id">Codigo de Adopcion:</form:label>                      
-                                            <form:input path="adopt_id" class="form-control"></form:input>   
+                                            <form:input path="adopt_id" disabled="true" class="form-control"></form:input>   
                                             </div>
                                             <div class="form-group">
                                             <form:label path="user_id">Nombre de Usuario:</form:label>
@@ -51,7 +51,7 @@
                                         </div>
                                         <div class="form-group">
                                             <form:label path="adopt_date">Fecha de Adopción</form:label>
-                                            <form:input path="adopt_date" class="form-control"></form:input>
+                                            <form:input path="adopt_date" type="date" class="form-control"></form:input>
                                             </div>
                                             <div class="form-group">
                                             <form:label path="pet_id">Mascota</form:label>

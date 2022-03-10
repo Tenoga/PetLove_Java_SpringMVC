@@ -35,7 +35,7 @@
                                         <img src='<c:url value="public/img/usuarioPet.png"></c:url>'  > </img>
                                     </div>
                                     <div class="col-md-6">
-                                    <form:form commandName="usuario" method="POST">
+                                    <form:form commandName="usuario" method="POST" enctype="multipart/form-data">
                                         <form:errors path = "*" element="div" cssClass="alert alert-danger"></form:errors>
 
 
@@ -54,6 +54,10 @@
                                             <div class="form-group">
                                             <form:label path="telefono">Telefono:</form:label>
                                             <form:input path="telefono" class="form-control" placeholder="Telefono *" value=""  ></form:input>
+                                            </div>
+                                            <div class="form-group">
+                                            <form:label path="foto">Foto:</form:label>
+                                            <form:input path="foto" class="form-control" placeholder="Foto *" type="file"></form:input>
                                             </div>
                                             <div class="row">
                                                 <div class="col">

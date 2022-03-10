@@ -27,6 +27,7 @@
                         <th scope="col">Correo</th>
                         <th scope="col">Edad</th>
                         <th scope="col">Telefono</th>
+                        <th scope="col">Foto</th>
                         <th scope="col">Acción</th>
                     </tr>
                 </thead>
@@ -38,6 +39,7 @@
                             <td><c:out value="${user.correo}"></c:out></td>
                             <td><c:out value="${user.edad}"></c:out></td>
                             <td><c:out value="${user.telefono}"></c:out></td>
+                            <td><img class="rounded-circle" style="" height="84px" width="84px" src='<c:url value="${user.foto}" ></c:url>'/></td>
                                 <td>
                                     <a href="updateCliente.htm?id=${user.id}" class="btn btn-warning" style="border-radius: 13px;"><img src="https://img.icons8.com/ios/50/000000/pencil.png" width="25px"/></a>
                                     <a href="deleteUsuario.htm?id=${user.id}" class="btn btn-danger" style="border-radius: 13px;"><img  src="https://img.icons8.com/ios/50/000000/delete--v1.png" width="25px" /></a>

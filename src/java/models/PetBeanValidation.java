@@ -21,6 +21,7 @@ public class PetBeanValidation implements Validator{
         ValidationUtils.rejectIfEmptyOrWhitespace(errors,"petNacimiento", "requiered.petNacimiento", "El campo Nacimiento es OBLIGATORIO");
         ValidationUtils.rejectIfEmptyOrWhitespace(errors,"petRaza", "requiered.petRaza", "El campo Raza es OBLIGATORIO");
         ValidationUtils.rejectIfEmptyOrWhitespace(errors,"petColor", "requiered.petColor", "El campo Color es OBLIGATORIO");
+        ValidationUtils.rejectIfEmptyOrWhitespace(errors,"petFoto", "required.petFoto", "La foto es OBLIGATORIA");
         
         
     

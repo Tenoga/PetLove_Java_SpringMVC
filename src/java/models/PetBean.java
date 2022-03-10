@@ -20,17 +20,19 @@ public class PetBean {
     private int petNacimiento;
     private String petRaza;
     private String petColor;
+    private String petFoto;
 
     public PetBean() {
     }
 
-    public PetBean(int id, String petTipo, String petNombre, int petNacimiento, String petRaza, String petColor) {
+    public PetBean(int id, String petTipo, String petNombre, int petNacimiento, String petRaza, String petColor, String petFoto) {
         this.id = id;
         this.petTipo = petTipo;
         this.petNombre = petNombre;
         this.petNacimiento = petNacimiento;
         this.petRaza = petRaza;
         this.petColor = petColor;
+        this.petFoto = petFoto;
     }
 
     public int getId() {
@@ -81,6 +83,12 @@ public class PetBean {
         this.petColor = petColor;
     }
 
-   
+    public String getPetFoto() {
+        return petFoto;
+    }
+
+    public void setPetFoto(String petFoto) {
+        this.petFoto = petFoto;
+    }
 
 }
