@@ -24,8 +24,6 @@
                     <img src='<c:url value="public/img/petIcon.png"></c:url>'> </img>
                         <h3>Mascota</h3>
                         <p>Estas a unos cuantos clicks de crear tu usuario!</p>
-                        <!--Boton de login sin usar-->
-                        <!--<input type="submit" name="" value="Login"/><br/>-->
                     </div>
                     <div class="col-md-9 register-right">
                         <div class="tab-content" id="myTabContent">

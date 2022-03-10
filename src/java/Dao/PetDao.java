@@ -18,7 +18,7 @@ public class PetDao {
     ConectarDB con = new ConectarDB();
     
     //-------------------Mostrar Listado de Mascotas-----------------//
-    public List consultarAdoptPet(){
+    public List consultarPet(){
         List datos;
         this.jdbcTemplate = new JdbcTemplate(con.conDB());
         String sql = "select * from pet";

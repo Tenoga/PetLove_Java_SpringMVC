@@ -10,6 +10,7 @@ import Dao.ConectarDB;
 import Dao.PetDao;
 import Dao.UsuarioDao;
 import java.util.List;
+import javax.servlet.http.HttpServletRequest;
 import models.AdoptBean;
 import models.AdoptBeanValidation;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -63,7 +64,7 @@ public class adoptController {
         List user = userDao.ConsultarUsuario() ;
         System.out.println("Lista usuario yonoseque"+ user);
         mav.addObject("user", user);
-        List pet = petDao.consultarAdoptPet();
+        List pet = petDao.consultarPet();
         System.out.println("Lista usuario yonoseque"+ pet);
         mav.addObject("pet", pet);
         mav.setViewName("views/formAdopcion");
@@ -86,6 +87,17 @@ public class adoptController {
             jdbcTemplate.update(sql, ab.getUser_id(), ab.getPet_id(), ab.getAdopt_date());
             mav.setViewName("redirect:/listAdopcion.htm");
         }
+        return mav;
+    }
+    
+        //===================Borrar Adopcion============================//
+    @RequestMapping(value = "deleteAdopcion.htm")
+    public ModelAndView borrarUsuario(HttpServletRequest req) {
+        ModelAndView mav = new ModelAndView();
+        int id = Integer.parseInt(req.getParameter("id"));
+        String sql = "delete from adopt where id = ?";
+        jdbcTemplate.update(sql, id);
+        mav.setViewName("redirect:/listAdopcion.htm");
         return mav;
     }
 }
