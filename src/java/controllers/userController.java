@@ -16,7 +16,6 @@ import models.UsuarioBean;
 import models.UsuarioBeanValidation;
 import org.apache.commons.fileupload.FileItem;
 import org.apache.commons.fileupload.FileItemFactory;
-import org.apache.commons.fileupload.FileUploadBase;
 import org.apache.commons.fileupload.FileUploadException;
 import org.apache.commons.fileupload.disk.DiskFileItemFactory;
 import org.apache.commons.fileupload.servlet.ServletFileUpload;
@@ -56,76 +55,93 @@ public class userController {
         return mav;
     }
     //===============POST FORMULARIO=================//
+    private static final String UPLOAD_DIRECTORY = "..\\..\\web\\public\\img\\users";
+    private static final int MEMORY_THRESHOLD = 1024 * 1024 * 3; //3MB
+    private static final int MAX_FILE_SIZE = 1024 * 1024 * 40; //40MB
+    private static final int MAX_REQUEST_SIZE = 1024 * 1024 * 50; //50MB
+
     @RequestMapping(value = "formUsuario.htm", method = RequestMethod.POST)
     public ModelAndView valpostUserForm(
             @ModelAttribute("usuario") UsuarioBean ub,
             BindingResult result,
             SessionStatus status,
             HttpServletRequest request
-    ) 
-    {
+    ) {
         ModelAndView mav = new ModelAndView();
+
+        //=====================Validacion==================================//
 //        this.usuariovalidar.validate(ub, result);
 //        if (result.hasErrors()) {
 //            mav.addObject("ub", new UsuarioBean());
 //            mav.setViewName("views/formUsuario");
 //        } else {
 //            
-            //Obtener la ruta de lectura del archivo
-            String uploadFilePath = request.getSession().getServletContext().getRealPath("../../web/public/img/users");
-//            String uploadFilePath = request.getSession().getServletContext().getRealPath("/img/users");
-            //Determina si el atributo de carga esta configurado en el formulario
-            boolean isMultipart = ServletFileUpload.isMultipartContent(request);
-            //Variable tipo list para poder recorrer el vector 
-            ArrayList<String> userlist = new ArrayList<>();
-            if(isMultipart){
-                //Creación del archivo file item
-                FileItemFactory file = new DiskFileItemFactory();
-                //Transferencia del fileitem como parametro a la variable
-                ServletFileUpload fileUpload = new ServletFileUpload(file);
-                //Lista para pasar los valores del formulario
-                List<FileItem> items = null;
-                try{
-                    items = fileUpload.parseRequest(request);
-                } catch (FileUploadException ex){
-                    System.out.print("Carga esto..." + ex.getMessage());
-                }
-                for(int i = 0; i < items.size(); i++){
-                    //Aca se recorre todo el formulario
-                    FileItem fileItem = (FileItem) items.get(i);
-                    //Condicional para saber que variable es el archivo
-                    if(!fileItem.isFormField()){
-                    //Para obtener el nombre del archivo
-                        File f = new File("public/img/users/" + fileItem.getName());
-                    //Esta es la secuencia del archivo
-                        String nameFile = ("public/img/users/" + f.getName());
-                        System.out.print("Se ha cargado el archivo: " + uploadFilePath);
-                        File uploadFile = new File(uploadFilePath, f.getName());
-                        System.out.print("Se ha creado el archivo: " + uploadFile);
-                        
-                        try{
-                            //Almacena la secuencia de archivo en disco (directorio tomcat)
-                            fileItem.write(uploadFile);
-                            ub.setFoto(nameFile);
-                        } catch (Exception e){
-                            System.out.print("Se ha escrito: " + uploadFile);
-                        }
-                    } else{
-                        userlist.add(fileItem.getString());
-                    }
-                }
-                ub.setNombre(userlist.get(0));
-                ub.setCorreo(userlist.get(1));
-                ub.setEdad(userlist.get(2));
-                ub.setTelefono(userlist.get(3));
+        //======================================================================================================//
+
+        //Determina si el atributo de carga esta configurado en el formulario
+        boolean isMultipart = ServletFileUpload.isMultipartContent(request);
+        //Variable tipo list para poder recorrer el vector 
+        ArrayList<String> userlist = new ArrayList<>();
+        if (isMultipart) {
+            //Instancia del archivo fileItem
+            DiskFileItemFactory file = new DiskFileItemFactory();
+            //Establece el valor maximo de carga de archivos
+            file.setSizeThreshold(MEMORY_THRESHOLD);
+            //Establece el valor maximo de solicitud
+            file.setRepository(new File(System.getProperty("java.io.tmpdir")));
+            //Transferencia del fileitem como parametro a la variable
+            ServletFileUpload fileUpload = new ServletFileUpload(file);
+            //Para establecer el valor maximo de carga de archivos
+            fileUpload.setFileSizeMax(MAX_FILE_SIZE);
+            //Para establecer el valor maximo de solicitud (incluidos los datos y formulario)
+            fileUpload.setSizeMax(MAX_REQUEST_SIZE);
+            //Construye una ruta temporal para almacenar archivos cargados
+            String uploadPath = request.getServletContext().getRealPath("") + File.separator + UPLOAD_DIRECTORY;
+            File uploadDir = new File(uploadPath);
+
+            if (!uploadDir.exists()) {
+                uploadDir.mkdir();
             }
-            String sql = "insert into usuario(nombre, correo, edad, telefono, foto) values(?,?,?,?,?)";
-            jdbcTemplate.update(sql, ub.getNombre(), ub.getCorreo(), ub.getEdad(), ub.getTelefono(), ub.getFoto());
-            mav.setViewName("redirect:/listUsuario.htm");
+            //Lista para pasar los valores del formulario
+            List<FileItem> items = null;
+            try {
+                items = fileUpload.parseRequest(request);
+            } catch (FileUploadException ex) {
+                System.out.print("Carga esto..." + ex.getMessage());
+            }
+            for (int i = 0; i < items.size(); i++) {
+                //Aca se recorre todo el formulario
+                FileItem fileItem = (FileItem) items.get(i);
+                //Condicional para saber que variable es el archivo
+                if (!fileItem.isFormField()) {
+                    String fileName = new File(fileItem.getName()).getName();
+                    String filePath = uploadPath + File.separator + fileName;
+                    File uploadFile = new File(filePath);
+                    //Para obtener el nombre del archivo
+                    String nameFile = ("public/img/users/" + fileName);
+                    try {
+                        //Almacena la secuencia de archivo en disco (directorio tomcat)
+                        fileItem.write(uploadFile);
+                        ub.setFoto(nameFile);
+                    } catch (Exception e) {
+                        System.out.print("Se ha escrito: " + uploadFile);
+                    }
+                }else {
+                    userlist.add(fileItem.getString());
+                }
+            }
+            ub.setNombre(userlist.get(0));
+            ub.setCorreo(userlist.get(1));
+            ub.setEdad(userlist.get(2));
+            ub.setTelefono(userlist.get(3));
+        }
+        String sql = "insert into usuario(nombre, correo, edad, telefono, foto) values(?,?,?,?,?)";
+        jdbcTemplate.update(sql, ub.getNombre(), ub.getCorreo(), ub.getEdad(), ub.getTelefono(), ub.getFoto());
+        mav.setViewName("redirect:/listUsuario.htm");
 //        }
         return mav;
     }
-    
+
     //======Trae la lista entera de la base de datos por medio del select *======//
     @RequestMapping(value = "listUsuario.htm")
     public ModelAndView listarCliente() {
@@ -137,7 +153,7 @@ public class userController {
         mav.setViewName("views/listUsuario");
         return mav;
     }
-    
+
     //===================Borrar usuario============================//
     @RequestMapping(value = "deleteUsuario.htm")
     public ModelAndView borrarUsuario(HttpServletRequest req) {
@@ -148,7 +164,7 @@ public class userController {
         mav.setViewName("redirect:/listUsuario.htm");
         return mav;
     }
-    
+
 //======================Actualizar cliente==================//
     @RequestMapping(value = "updateCliente.htm", method = RequestMethod.GET)
     public ModelAndView actualizarCliente(HttpServletRequest req) {
@@ -159,9 +175,8 @@ public class userController {
         mav.setViewName("views/updateCliente");
         return mav;
     }
-    
-    //===Convierte la lista de Result set  en una clase  Clientebean=====//
 
+    //===Convierte la lista de Result set  en una clase  Clientebean=====//
     public UsuarioBean getUserById(int id) {
         UsuarioBean ub = new UsuarioBean();
         String sql = "select * from usuario where id = " + id;
@@ -182,7 +197,7 @@ public class userController {
                 }
         );
     }
-    
+
 //     //=========metodo POST para enviar los datos a la base de atos======================//
 //    //actCliente= Actualizar cliente
     @RequestMapping(value = "updateCliente.htm", method = RequestMethod.POST)

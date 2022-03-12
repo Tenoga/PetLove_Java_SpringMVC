@@ -21,8 +21,8 @@
                 <thead>
                     <tr>
                         <th scope="col">ID Adopcion</th>
-                        <th scope="col">ID Usuario</th>
-                        <th scope="col">ID Mascota</th>
+                        <th scope="col">Nombre de Usuario</th>
+                        <th scope="col">Nombre de Mascota</th>
                         <th scope="col">Fecha de Adopcion</th>
                         <th scope="col">Acción</th>
                     </tr>

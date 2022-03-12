@@ -17,7 +17,7 @@
         <%@include file="views/components/Nav.jsp" %>
         <!---------------------------->
         <div class="parallax">
-            <div class="col-5 register-left">
+            <div class="col-5 register-left" style="margin-top: -0.5rem;">
                 <img src='<c:url value="public/img/petIcon.png"></c:url>'> </img>
                 <h3 class="display-4">¡Bienvenido a PetLove!</h3>
                 <h5>El mejor website para adoptar tu mascota</h5>

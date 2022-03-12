@@ -29,7 +29,7 @@
                     <div class="col-md-9 register-right">
                         <div class="tab-content" id="myTabContent">
                             <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
-                                <h3 class="register-heading display-4">Crear Usuario</h3>
+                                <h3 class="register-heading display-4">Actualizar Usuario</h3>
                                 <div class="row register-form">
                                     <div class="col-md-6">
                                         <img src='<c:url value="public/img/usuarioPet.png"></c:url>'  > </img>
@@ -61,7 +61,7 @@
                                             </div>
                                             <div class="row">
                                                 <div class="col">
-                                                    <button type="submit" class="btnRegister">Crear</button>
+                                                    <button type="submit" class="btnRegister">Actualizar</button>
                                                 </div>
                                                 <div class="col">
                                                     <a href="listUsuario.htm" class="btnBack btn" >Regresar</a> 

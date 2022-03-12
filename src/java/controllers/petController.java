@@ -55,35 +55,53 @@ public class petController {
         mav.addObject("pet", pet);
         return mav;
     }
-// ==============Vista pet e insercion de datos en BD=============================
+// ==============POST FORMULARIO PET=============================
+    private static final String UPLOAD_DIRECTORY = "..\\..\\web\\public\\img\\pets";
+    private static final int MEMORY_THRESHOLD = 1024 * 1024 * 3; //3MB
+    private static final int MAX_FILE_SIZE = 1024 * 1024 * 40; //40MB
+    private static final int MAX_REQUEST_SIZE = 1024 * 1024 * 50; //50MB
 
     @RequestMapping(value = "formPet.htm", method = RequestMethod.POST)
-    public ModelAndView vistaPet(
+    public ModelAndView postPetForm(
             @ModelAttribute("pet") PetBean pb,
             BindingResult result,
             SessionStatus status,
             HttpServletRequest request
     ) {
         ModelAndView mav = new ModelAndView();
+        //=====================Validacion==================================//
 //        this.petValidar.validate(pb, result);
 //        if (result.hasErrors()) {
 //            mav.addObject("pb", new PetBean());
 //            mav.setViewName("views/formPet");
 //            return mav;
 //        } else {
+//======================================================================================================//
 
-        //Obtener la ruta de lectura del archivo
-        String uploadFilePath = request.getSession().getServletContext().getRealPath("../../web/public/img/pets");
         //Determina si el atributo de carga esta configurado en el formulario
         boolean isMultipart = ServletFileUpload.isMultipartContent(request);
         //Variable tipo list para poder recorrer el vector 
         ArrayList<String> petlist = new ArrayList<>();
         if (isMultipart) {
-            //Creación del archivo file item
-            FileItemFactory file = new DiskFileItemFactory();
+            //Instancia del archivo fileItem
+            DiskFileItemFactory file = new DiskFileItemFactory();
+            //Establece el valor maximo de carga de archivos
+            file.setSizeThreshold(MEMORY_THRESHOLD);
+            //Establece el valor maximo de solicitud
+            file.setRepository(new File(System.getProperty("java.io.tmpdir")));
             //Transferencia del fileitem como parametro a la variable
             ServletFileUpload fileUpload = new ServletFileUpload(file);
             //Lista para pasar los valores del formulario
+            fileUpload.setFileSizeMax(MAX_FILE_SIZE);
+            //Para establecer el valor maximo de solicitud (incluidos los datos y formulario)
+            fileUpload.setSizeMax(MAX_REQUEST_SIZE);
+            //Construye una ruta temporal para almacenar archivos cargados
+            String uploadPath = request.getServletContext().getRealPath("") + File.separator + UPLOAD_DIRECTORY;
+            File uploadDir = new File(uploadPath);
+
+            if (!uploadDir.exists()) {
+                uploadDir.mkdir();
+            }
             List<FileItem> items = null;
             try {
                 items = fileUpload.parseRequest(request);
@@ -95,17 +113,16 @@ public class petController {
                 FileItem fileItem = (FileItem) items.get(i);
                 //Condicional para saber que variable es el archivo
                 if (!fileItem.isFormField()) {
+                    String fileName = new File(fileItem.getName()).getName();
+                    String filePath = uploadPath + File.separator + fileName;
+                    File uploadFile = new File(filePath);
                     //Para obtener el nombre del archivo
-                    File f = new File("public/img/pets/" + fileItem.getName());
-                    //Esta es la secuencia del archivo
-                    String nameFile = ("public/img/pets/" + f.getName());
-                    System.out.print("Se ha cargado el archivo: " + uploadFilePath);
-                    File uploadFile = new File(uploadFilePath, f.getName());
-                    System.out.print("Se ha creado el archivo: " + uploadFile);
+                    String nameFile = ("public/img/pets/" + fileName);
 
                     try {
                         //Almacena la secuencia de archivo en disco (directorio tomcat)
                         fileItem.write(uploadFile);
+                        pb.setPetFoto(nameFile);
                     } catch (Exception e) {
                         System.out.print("Se ha escrito: " + uploadFile);
                     }
@@ -116,7 +133,7 @@ public class petController {
             }
             pb.setPetTipo(petlist.get(0));
             pb.setPetNombre(petlist.get(1));
-            pb.setPetNacimiento (Integer.parseInt(petlist.get(2)));
+            pb.setPetNacimiento(Integer.parseInt(petlist.get(2)));
             pb.setPetRaza(petlist.get(3));
             pb.setPetColor(petlist.get(4));
         }
@@ -177,6 +194,7 @@ public class petController {
                             ub.setPetNacimiento(rs.getInt("petNacimiento"));
                             ub.setPetRaza(rs.getString("petRaza"));
                             ub.setPetColor(rs.getString("petColor"));
+                            ub.setPetFoto(rs.getString("petFoto"));
                         }
                         return ub;
                     }
@@ -190,8 +208,8 @@ public class petController {
     public ModelAndView actPet(PetBean ub) {
         ModelAndView mav = new ModelAndView();
         String sql = "update pet set petTipo = ?, petNombre = ?, petNacimiento = ?,"
-                + "petRaza = ?, petColor = ? where id = " + ub.getId();
-        jdbcTemplate.update(sql, ub.getPetTipo(), ub.getPetNombre(), ub.getPetNacimiento(), ub.getPetRaza(), ub.getPetColor());
+                + "petRaza = ?, petColor = ?, petFoto = ? where id = " + ub.getId();
+        jdbcTemplate.update(sql, ub.getPetTipo(), ub.getPetNombre(), ub.getPetNacimiento(), ub.getPetRaza(), ub.getPetColor(), ub.getPetFoto());
         mav.setViewName("redirect:/listPet.htm");
         return mav;
     }

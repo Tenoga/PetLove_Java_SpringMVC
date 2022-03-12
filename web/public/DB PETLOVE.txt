@@ -13,7 +13,8 @@ create table usuario
 	nombre varchar(255) not null,
 	correo varchar(255) not null,
 	edad int(20) not null,
-	telefono varchar(255) not null
+	telefono varchar(255) not null,
+	foto varchar(255) not null
 );
 
 create table pet(
@@ -22,14 +23,15 @@ create table pet(
 	petNombre varchar(255) not null,
 	petNacimiento int(20) not null,
 	petRaza varchar(255) not null,
-	petColor varchar(255) not null
+	petColor varchar(255) not null,
+	petFoto varchar(255) not null
 );
 
 create table adopt(
 	adopt_id int(20) PRIMARY key not null auto_increment,
 	user_id int(20) not null,
 	pet_id int(20) not null,
-	adopt_date timestamp not null,
+	adopt_date date not null,
 	Foreign key(user_id) references usuario(id),
 	Foreign key(pet_id) references pet(id)
 );

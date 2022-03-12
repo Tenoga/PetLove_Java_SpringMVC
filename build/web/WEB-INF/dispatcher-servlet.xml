@@ -37,6 +37,7 @@
                 <prop key="formAdopcion.htm">adoptController</prop>
                 <prop key="listAdopcion.htm">adoptController</prop>
                 <prop key="deleteAdopcion.htm">adoptController</prop>
+                <prop key="updateAdopcion.htm">adoptController</prop>
          
             </props>
         </property>
