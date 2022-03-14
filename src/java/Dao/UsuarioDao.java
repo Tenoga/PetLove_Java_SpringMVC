@@ -5,6 +5,7 @@
  */
 package Dao;
 
+import java.io.File;
 import java.util.List;
 import org.springframework.jdbc.core.JdbcTemplate;
 
@@ -24,5 +25,20 @@ public class UsuarioDao {
         String sql = "select * from usuario";
         usuario = this.jdbcTemplate.queryForList(sql);
         return usuario;
+    }
+    
+    //====================Borrado de imagen========================//
+    public void deleteImg(String foto, String deletePath, int id){
+        final String DELETE_DIRECTORY = "..\\..\\web\\";
+        this.jdbcTemplate = new JdbcTemplate(con.conDB());
+        //Ubicación del archivo en el servidor
+        String deleteFile = deletePath + DELETE_DIRECTORY + foto;
+        File borrar = new File (deleteFile);
+        if(borrar.delete()){
+            String sql = "delete from usuario where id = ?";
+            jdbcTemplate.update(sql, id);
+        }else{
+            System.out.println("No se pudo eliminar la imagen");
+        }
     }
 }

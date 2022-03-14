@@ -6,6 +6,7 @@
 package controllers;
 
 import Dao.ConectarDB;
+import Dao.PetDao;
 import java.io.File;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -157,13 +158,17 @@ public class petController {
         return mav;
     }
 
-    //===================Borrar usuario============================//
+    //===================Borrar mascota============================//
     @RequestMapping(value = "deletePet.htm")
     public ModelAndView borrarPet(HttpServletRequest req) {
         ModelAndView mav = new ModelAndView();
+        PetDao petDao = new PetDao();
         int id = Integer.parseInt(req.getParameter("id"));
-        String sql = "delete from pet where id = ?";
-        jdbcTemplate.update(sql, id);
+        //Captura la direccion del archivo
+        String deletePath = req.getServletContext().getRealPath("") + File.separator;
+        String petFoto = req.getParameter("petFoto");
+        //Metodo que borra la mascota y la imagen
+        petDao.deleteImg(petFoto, deletePath, id);
         mav.setViewName("redirect:/listPet.htm");
         return mav;
     }

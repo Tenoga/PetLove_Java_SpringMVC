@@ -6,6 +6,7 @@
 package controllers;
 
 import Dao.ConectarDB;
+import Dao.UsuarioDao;
 import java.io.File;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -158,9 +159,13 @@ public class userController {
     @RequestMapping(value = "deleteUsuario.htm")
     public ModelAndView borrarUsuario(HttpServletRequest req) {
         ModelAndView mav = new ModelAndView();
+        UsuarioDao userDao = new UsuarioDao();
         int id = Integer.parseInt(req.getParameter("id"));
-        String sql = "delete from usuario where id = ?";
-        jdbcTemplate.update(sql, id);
+        //Captura la direccion del archivo
+        String deletePath = req.getServletContext().getRealPath("") + File.separator;
+        String foto = req.getParameter("foto");
+        //Metodo que borra el cliente y la imagen
+        userDao.deleteImg(foto, deletePath, id);        
         mav.setViewName("redirect:/listUsuario.htm");
         return mav;
     }

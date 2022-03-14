@@ -42,7 +42,7 @@
                             <td><img class="rounded-circle" style="" height="84px" width="84px" src='<c:url value="${user.foto}" ></c:url>'/></td>
                                 <td>
                                     <a href="updateCliente.htm?id=${user.id}" class="btn btn-warning" style="border-radius: 13px;"><img src="https://img.icons8.com/ios/50/000000/pencil.png" width="25px"/></a>
-                                    <a href="deleteUsuario.htm?id=${user.id}" class="btn btn-danger" style="border-radius: 13px;"><img  src="https://img.icons8.com/ios/50/000000/delete--v1.png" width="25px" /></a>
+                                    <a href="deleteUsuario.htm?id=${user.id}&foto=${user.foto}" class="btn btn-danger" style="border-radius: 13px;"><img  src="https://img.icons8.com/ios/50/000000/delete--v1.png" width="25px" /></a>
                             </td>
                         </tr>    
                     </c:forEach>

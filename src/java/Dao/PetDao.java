@@ -3,9 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package Dao;
 
+import java.io.File;
 import java.util.List;
 import org.springframework.jdbc.core.JdbcTemplate;
 
@@ -14,15 +14,31 @@ import org.springframework.jdbc.core.JdbcTemplate;
  * @author SENA
  */
 public class PetDao {
+
     JdbcTemplate jdbcTemplate;
     ConectarDB con = new ConectarDB();
-    
+
     //-------------------Mostrar Listado de Mascotas-----------------//
-    public List consultarPet(){
+    public List consultarPet() {
         List datos;
         this.jdbcTemplate = new JdbcTemplate(con.conDB());
         String sql = "select * from pet";
         datos = this.jdbcTemplate.queryForList(sql);
         return datos;
+    }
+
+    //====================Borrado de imagen========================//
+    public void deleteImg(String petFoto, String deletePath, int id) {
+        final String DELETE_DIRECTORY = "..\\..\\web\\";
+        this.jdbcTemplate = new JdbcTemplate(con.conDB());
+        //Ubicación del archivo en el servidor
+        String deleteFile = deletePath + DELETE_DIRECTORY + petFoto;
+        File borrar = new File(deleteFile);
+        if (borrar.delete()) {
+            String sql = "delete from pet where id = ?";
+            jdbcTemplate.update(sql, id);
+        } else {
+            System.out.println("No se pudo eliminar la imagen");
+        }
     }
 }
