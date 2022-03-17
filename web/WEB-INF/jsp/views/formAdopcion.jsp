@@ -38,8 +38,8 @@
                                     <form:form commandName="adopt" method="POST">
                                         <form:errors path = "*" element="div" cssClass="alert alert-danger"></form:errors>
                                             <div class="form-group">
-                                            <form:label path="adopt_id">Codigo de Adopcion:</form:label>                      
-                                            <form:input path="adopt_id" disabled="true" class="form-control"></form:input>   
+                                            <label>Codigo de Adopcion:</label>                      
+                                            <input  value="${code}" disabled="true" class="form-control"></input>   
                                             </div>
                                             <div class="form-group">
                                             <form:label path="user_id">Nombre de Usuario:</form:label>

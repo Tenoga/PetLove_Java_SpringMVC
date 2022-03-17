@@ -20,17 +20,19 @@ public class UsuarioBean {
     private String edad;
     private String telefono;
     private String foto;
+    private String fotoOld;
 
     public UsuarioBean() {
     }
 
-    public UsuarioBean(int id, String nombre, String correo, String edad, String telefono, String foto) {
+    public UsuarioBean(int id, String nombre, String correo, String edad, String telefono, String foto, String fotoOld) {
         this.id = id;
         this.nombre = nombre;
         this.correo = correo;
         this.edad = edad;
         this.telefono = telefono;
         this.foto = foto;
+        this.fotoOld = fotoOld;
     }
 
     public int getId() {
@@ -81,8 +83,11 @@ public class UsuarioBean {
         this.foto = foto;
     }
 
+    public String getFotoOld() {
+        return fotoOld;
+    }
 
-
-         
-    
+    public void setFotoOld(String fotoOld) {
+        this.fotoOld = fotoOld;
+    }
 }

@@ -66,6 +66,8 @@ public class adoptController {
         mav.addObject("user", user);
         List pet = petDao.consultarPet();
         System.out.println("Lista usuario yonoseque"+ pet);
+        int code = adoptDao.consultarIdAdopcion();
+        mav.addObject("code", code);
         mav.addObject("pet", pet);
         mav.setViewName("views/formAdopcion");
         return mav;

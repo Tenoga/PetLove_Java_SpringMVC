@@ -32,7 +32,7 @@
                                 <h3 class="register-heading display-4">Actualizar Usuario</h3>
                                 <div class="row register-form">
                                     <div class="col-md-6">
-                                        <img src='<c:url value="public/img/usuarioPet.png"></c:url>'  > </img>
+                                        <img class="rounded" id="fotoOld" name="fotoOld" width="80%" src='<c:url value="${usuario.foto}"></c:url>'  > </img>
                                     </div>
                                     <div class="col-md-6">
                                     <form:form commandName="usuario" method="POST" enctype="multipart/form-data">

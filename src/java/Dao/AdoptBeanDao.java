@@ -27,7 +27,7 @@ public class AdoptBeanDao {
     }
 
     public int consultarIdAdopcion() {
-        int adopt_id = 0;
+        int adopt_id = 1;
         this.jdbcTemplate = new JdbcTemplate(con.conDB());
         String sql = "select max(adopt_id)+1 as adopt_id from adopt";
         adopt_id = this.jdbcTemplate.queryForObject(sql, Integer.class);

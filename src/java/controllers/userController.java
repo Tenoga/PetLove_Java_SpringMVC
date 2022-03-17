@@ -55,7 +55,7 @@ public class userController {
         mav.addObject("usuario", usuario);
         return mav;
     }
-    //===============POST FORMULARIO=================//
+     //===============POST FORMULARIO=================//
     private static final String UPLOAD_DIRECTORY = "..\\..\\web\\public\\img\\users";
     private static final int MEMORY_THRESHOLD = 1024 * 1024 * 3; //3MB
     private static final int MAX_FILE_SIZE = 1024 * 1024 * 40; //40MB
@@ -141,8 +141,7 @@ public class userController {
         mav.setViewName("redirect:/listUsuario.htm");
 //        }
         return mav;
-    }
-
+    }  
     //======Trae la lista entera de la base de datos por medio del select *======//
     @RequestMapping(value = "listUsuario.htm")
     public ModelAndView listarCliente() {
@@ -165,7 +164,7 @@ public class userController {
         String deletePath = req.getServletContext().getRealPath("") + File.separator;
         String foto = req.getParameter("foto");
         //Metodo que borra el cliente y la imagen
-        userDao.deleteImg(foto, deletePath, id);        
+        userDao.deleteImg(foto, deletePath, id);
         mav.setViewName("redirect:/listUsuario.htm");
         return mav;
     }
@@ -175,7 +174,9 @@ public class userController {
     public ModelAndView actualizarCliente(HttpServletRequest req) {
         ModelAndView mav = new ModelAndView();
         int id = Integer.parseInt(req.getParameter("id"));
+        String fotoOld = req.getParameter("fotoOld");
         UsuarioBean ub = getUserById(id);
+        ub.setFotoOld(fotoOld);
         mav.addObject("usuario", ub);
         mav.setViewName("views/updateCliente");
         return mav;
@@ -201,18 +202,40 @@ public class userController {
                     }
                 }
         );
-    }
-
-//     //=========metodo POST para enviar los datos a la base de atos======================//
-//    //actCliente= Actualizar cliente
+    }    
+    //===============POST FORMULARIO UPDATE=================//
     @RequestMapping(value = "updateCliente.htm", method = RequestMethod.POST)
-    public ModelAndView actCliente(UsuarioBean ub) {
+    public ModelAndView actCliente(
+            UsuarioBean ub,
+            HttpServletRequest request
+    ) {
         ModelAndView mav = new ModelAndView();
-        String sql = "update usuario set nombre = ?, correo = ?, edad = ?,"
-                + "telefono = ?, foto = ? where id = " + ub.getId();
-        jdbcTemplate.update(sql, ub.getNombre(), ub.getCorreo(), ub.getEdad(), ub.getTelefono(), ub.getFoto());
+        UsuarioDao uDao = new UsuarioDao();
+        //Variable tipo list para poder recorrer el vector 
+        ArrayList<String> userlist = new ArrayList<>();
+        boolean isMultipart = ServletFileUpload.isMultipartContent(request);
+        //Instancia del archivo fileItem
+        DiskFileItemFactory file = new DiskFileItemFactory();
+        //Transferencia del fileitem como parametro a la variable
+        ServletFileUpload fileUpload = new ServletFileUpload(file);
+        List<FileItem> items = null;
+        try {
+            items = fileUpload.parseRequest(request);
+            System.out.println(items.size());
+            for (int i = 0; i < items.size(); i++) {
+                //Aca se recorre todo el formulario
+                FileItem fileItem = (FileItem) items.get(i);
+                userlist.add(fileItem.getString());
+            }
+        } catch (FileUploadException ex) {
+            System.out.print("Error al cargar la imagen UPDATE_CLIENTE");
+        }
+        if (userlist.get(4).isEmpty() || userlist.get(4).equals("") || userlist.get(4) == null) {
+            uDao.actUsuarioSinImg(ub, userlist);
+        } else {
+            uDao.actClienteConImg(ub, request, items);
+        }
         mav.setViewName("redirect:/listUsuario.htm");
         return mav;
     }
-
 }
