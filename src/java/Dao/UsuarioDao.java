@@ -102,8 +102,8 @@ public class UsuarioDao {
                 //Condicional para saber que variable es el archivo
                 if (!fileItem.isFormField()) {
                     String fileName = new File(fileItem.getName()).getName();
-                    String filePath = uploadPath + File.separator;
-                    File uploadFile = new File(filePath + userlist.get(0) + fileName);
+                    String filePath = uploadPath + File.separator + userlist.get(0) + fileName;
+                    File uploadFile = new File(filePath);
                     //Para obtener el nombre del archivo
                     String nameFile = ("public/img/users/" + userlist.get(0) + fileName);
                     System.out.println(nameFile);

@@ -15,9 +15,7 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import models.PetBean;
 import models.PetBeanValidation;
-import models.UsuarioBean;
 import org.apache.commons.fileupload.FileItem;
-import org.apache.commons.fileupload.FileItemFactory;
 import org.apache.commons.fileupload.FileUploadException;
 import org.apache.commons.fileupload.disk.DiskFileItemFactory;
 import org.apache.commons.fileupload.servlet.ServletFileUpload;
@@ -39,8 +37,8 @@ import org.springframework.web.servlet.ModelAndView;
 @Controller
 public class petController {
 
-    private PetBeanValidation petValidar;
-    private JdbcTemplate jdbcTemplate;
+    private final PetBeanValidation petValidar;
+    private final JdbcTemplate jdbcTemplate;
 
     public petController() {
         this.petValidar = new PetBeanValidation();
@@ -115,10 +113,10 @@ public class petController {
                 //Condicional para saber que variable es el archivo
                 if (!fileItem.isFormField()) {
                     String fileName = new File(fileItem.getName()).getName();
-                    String filePath = uploadPath + File.separator + fileName;
+                    String filePath = uploadPath + File.separator + petlist.get(1) + fileName;
                     File uploadFile = new File(filePath);
                     //Para obtener el nombre del archivo
-                    String nameFile = ("public/img/pets/" + fileName);
+                    String nameFile = ("public/img/pets/" + petlist.get(1) + fileName);
 
                     try {
                         //Almacena la secuencia de archivo en disco (directorio tomcat)
@@ -127,7 +125,6 @@ public class petController {
                     } catch (Exception e) {
                         System.out.print("Se ha escrito: " + uploadFile);
                     }
-                    pb.setPetFoto(nameFile);
                 } else {
                     petlist.add(fileItem.getString());
                 }
@@ -152,21 +149,20 @@ public class petController {
         ModelAndView mav = new ModelAndView();
         String sql = "select * from pet";
         List datos = jdbcTemplate.queryForList(sql);
-        System.out.println("Lista: " + datos);
         mav.addObject("pet", datos);
         mav.setViewName("views/listPet");
         return mav;
     }
 
     //===================Borrar mascota============================//
-    @RequestMapping(value = "deletePet.htm")
+    @RequestMapping(value = "deletePet.htm", method = RequestMethod.GET)
     public ModelAndView borrarPet(HttpServletRequest req) {
         ModelAndView mav = new ModelAndView();
         PetDao petDao = new PetDao();
         int id = Integer.parseInt(req.getParameter("id"));
         //Captura la direccion del archivo
         String deletePath = req.getServletContext().getRealPath("") + File.separator;
-        String petFoto = req.getParameter("petFoto");
+        String petFoto = getPetById(id).getPetFoto();
         //Metodo que borra la mascota y la imagen
         petDao.deleteImg(petFoto, deletePath, id);
         mav.setViewName("redirect:/listPet.htm");
@@ -178,8 +174,10 @@ public class petController {
     public ModelAndView actualizarPet(HttpServletRequest req) {
         ModelAndView mav = new ModelAndView();
         int id = Integer.parseInt(req.getParameter("id"));
-        PetBean ub = getPetById(id);
-        mav.addObject("pet", ub);
+        String petFotoOld = req.getParameter("petFotoOld");
+        PetBean pb = getPetById(id);
+        pb.setPetFotoOld(petFotoOld);
+        mav.addObject("pet", pb);
         mav.setViewName("views/updatePet");
         return mav;
     }
@@ -207,16 +205,39 @@ public class petController {
         );
     }
 
-//     //=========metodo POST para enviar los datos a la base de atos======================//
-//    //actCliente= Actualizar cliente
+    //===============POST FORMULARIO UPDATE=================//
     @RequestMapping(value = "updatePet.htm", method = RequestMethod.POST)
-    public ModelAndView actPet(PetBean ub) {
+    public ModelAndView actPet(
+            PetBean pb,
+            HttpServletRequest request
+    ) {
         ModelAndView mav = new ModelAndView();
-        String sql = "update pet set petTipo = ?, petNombre = ?, petNacimiento = ?,"
-                + "petRaza = ?, petColor = ?, petFoto = ? where id = " + ub.getId();
-        jdbcTemplate.update(sql, ub.getPetTipo(), ub.getPetNombre(), ub.getPetNacimiento(), ub.getPetRaza(), ub.getPetColor(), ub.getPetFoto());
+        PetDao pDao = new PetDao();
+        //Variable tipo list para poder recorrer el vector 
+        ArrayList<String> petlist = new ArrayList<>();
+        boolean isMultipart = ServletFileUpload.isMultipartContent(request);
+        //Instancia del archivo fileItem
+        DiskFileItemFactory file = new DiskFileItemFactory();
+        //Transferencia del fileitem como parametro a la variable
+        ServletFileUpload fileUpload = new ServletFileUpload(file);
+        List<FileItem> items = null;
+        try {
+            items = fileUpload.parseRequest(request);
+            System.out.println(items.size());
+            for (int i = 0; i < items.size(); i++) {
+                //Aca se recorre todo el formulario
+                FileItem fileItem = (FileItem) items.get(i);
+                petlist.add(fileItem.getString());
+            }
+        } catch (FileUploadException ex) {
+            System.out.print("Error al cargar la imagen UPDATE_PET");
+        }
+        if (petlist.get(5).isEmpty() || petlist.get(5).equals("") || petlist.get(5) == null) {
+            pDao.actPetSinImg(pb, petlist);
+        } else {
+            pDao.actPetConImg(pb, request, items);
+        }
         mav.setViewName("redirect:/listPet.htm");
         return mav;
     }
-
 }

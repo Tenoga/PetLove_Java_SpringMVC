@@ -116,10 +116,10 @@ public class userController {
                 //Condicional para saber que variable es el archivo
                 if (!fileItem.isFormField()) {
                     String fileName = new File(fileItem.getName()).getName();
-                    String filePath = uploadPath + File.separator + fileName;
+                    String filePath = uploadPath + File.separator + userlist.get(0) + fileName;
                     File uploadFile = new File(filePath);
                     //Para obtener el nombre del archivo
-                    String nameFile = ("public/img/users/" + fileName);
+                    String nameFile = ("public/img/users/" + userlist.get(0) + fileName);
                     try {
                         //Almacena la secuencia de archivo en disco (directorio tomcat)
                         fileItem.write(uploadFile);

@@ -9,11 +9,15 @@ import Dao.AdoptBeanDao;
 import Dao.ConectarDB;
 import Dao.PetDao;
 import Dao.UsuarioDao;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import models.AdoptBean;
 import models.AdoptBeanValidation;
+import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.ResultSetExtractor;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -62,16 +66,45 @@ public class adoptController {
         AdoptBean adopt = new AdoptBean();
         mav.addObject("adopt", adopt);
         List user = userDao.ConsultarUsuario() ;
-        System.out.println("Lista usuario yonoseque"+ user);
         mav.addObject("user", user);
         List pet = petDao.consultarPet();
-        System.out.println("Lista usuario yonoseque"+ pet);
         int code = adoptDao.consultarIdAdopcion();
         mav.addObject("code", code);
         mav.addObject("pet", pet);
         mav.setViewName("views/formAdopcion");
         return mav;
     }
+    //======================Actualizar cliente==================//
+    @RequestMapping(value = "updateAdopcion.htm", method = RequestMethod.GET)
+    public ModelAndView actualizarAdopcion(HttpServletRequest req) {
+        ModelAndView mav = new ModelAndView();
+        int id = Integer.parseInt(req.getParameter("id"));
+        AdoptBean ab = getAdoptById(id);
+        mav.addObject("adopt", ab);
+        mav.setViewName("views/updateAdopcion");
+        return mav;
+    }
+    
+    
+    //===Convierte la lista de Result set  en una clase  Clientebean=====//
+    public AdoptBean getAdoptById(int id) {
+        AdoptBean ab = new AdoptBean();
+        String sql = "select * from adopt where adopt_id = " + id;
+        return (AdoptBean) jdbcTemplate.query(
+                sql, new ResultSetExtractor<AdoptBean>() {
+                    @Override
+                    public AdoptBean extractData(ResultSet rs) throws SQLException, DataAccessException {
+                        if (rs.next()) {
+                            ab.setAdopt_id(rs.getInt("adopt_id"));
+                            ab.setUser_id(rs.getInt("user_id"));
+                            ab.setPet_id(rs.getInt("pet_id"));
+                            ab.setAdopt_date(rs.getString("adopt_date"));
+                        }
+                        return ab;
+                    }
+                }
+        );
+    }   
     //===================Insertar Adopcion============================//
     @RequestMapping(value = "formAdopcion.htm", method = RequestMethod.POST)
     public ModelAndView postAdoptForm(
@@ -94,10 +127,10 @@ public class adoptController {
     
         //===================Borrar Adopcion============================//
     @RequestMapping(value = "deleteAdopcion.htm")
-    public ModelAndView borrarUsuario(HttpServletRequest req) {
+    public ModelAndView borrarAdopcion(HttpServletRequest req) {
         ModelAndView mav = new ModelAndView();
         int id = Integer.parseInt(req.getParameter("id"));
-        String sql = "delete from adopt where id = ?";
+        String sql = "delete from adopt where id = " + id;
         jdbcTemplate.update(sql, id);
         mav.setViewName("redirect:/listAdopcion.htm");
         return mav;
