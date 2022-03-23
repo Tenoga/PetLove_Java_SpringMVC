@@ -126,13 +126,13 @@ public class adoptController {
     }
     
         //===================Borrar Adopcion============================//
-    @RequestMapping(value = "deleteAdopcion.htm")
-    public ModelAndView borrarAdopcion(HttpServletRequest req) {
+    
+     @RequestMapping(value = "deleteadoption.htm", method = RequestMethod.GET)
+    public ModelAndView deleteAdoption(HttpServletRequest request) {
         ModelAndView mav = new ModelAndView();
-        int id = Integer.parseInt(req.getParameter("id"));
-        String sql = "delete from adopt where id = " + id;
-        jdbcTemplate.update(sql, id);
-        mav.setViewName("redirect:/listAdopcion.htm");
+        int id = Integer.parseInt(request.getParameter("id"));
+        this.adoptDao.deleteAdoption(id);
+        mav.setViewName("redirect:/listadoptions.htm");
         return mav;
     }
 }

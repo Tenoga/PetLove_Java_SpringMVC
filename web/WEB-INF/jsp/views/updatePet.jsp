@@ -34,7 +34,7 @@
                                 <h3 class="register-heading display-4">Actualizar Mascota</h3>
                                 <div class="row register-form">
                                     <div class="col-md-6">
-                                        <img src='<c:url value="public/img/pets.png"></c:url>'  > </img>
+                                        <img class="rounded" id="fotoPetOld" name="fotoOld" width="80%" src='<c:url value="${pet.petFoto}"></c:url>'  > </img>
                                     </div>
                                     <div class="col-md-6">
                                     <form:form commandName="pet" method="POST" enctype="multipart/form-data">

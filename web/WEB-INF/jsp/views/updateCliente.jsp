@@ -22,7 +22,7 @@
                 <div class="col-md-3 register-left">
                     <img src='<c:url value="public/img/petIcon.png"></c:url>'> </img>
                         <h3>Usuario</h3>
-                        <p>Estas a unos cuantos clicks de crear tu usuario!</p>
+                        <p>Estas a unos cuantos clicks de actualizar tu usuario!</p>
                         <!--Boton de login sin usar-->
                         <!--<input type="submit" name="" value="Login"/><br/>-->
                     </div>
