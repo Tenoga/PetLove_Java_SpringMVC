@@ -1,9 +1,3 @@
-/--------------------PETLOVE DB---------------------------------/
-
-cd mysql
-
-MySQL -h localhost -u root -p
-
 create database petlove;
 
 
@@ -25,6 +19,7 @@ create table pet(
 	petNacimiento int(20) not null,
 	petRaza varchar(255) not null,
 	petColor varchar(255) not null,
+	is_adopted boolean not null,
 	petFoto varchar(255),
 	petFotoOld varchar(255)
 );

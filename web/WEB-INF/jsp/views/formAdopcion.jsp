@@ -38,10 +38,10 @@
                                     <form:form commandName="adopt" method="POST">
                                         <form:errors path = "*" element="div" cssClass="alert alert-danger"></form:errors>
                                             <div class="form-group">
-                                            <label>Codigo de Adopcion:</label>                      
-                                            <input  value="${code}" disabled="true" class="form-control"></input>   
-                                            </div>
-                                            <div class="form-group">
+                                                <label>Codigo de Adopcion:</label>                      
+                                                <input  value="${code}" disabled="true" class="form-control"></input>   
+                                        </div>
+                                        <div class="form-group">
                                             <form:label path="user_id">Nombre de Usuario:</form:label>
                                             <form:select path="user_id" class="form-select">
                                                 <c:forEach items="${user}" var="user">
@@ -54,19 +54,24 @@
                                             <form:input path="adopt_date" type="date" class="form-control"></form:input>
                                             </div>
                                             <div class="form-group">
-                                            <form:label path="pet_id">Mascota</form:label>
-                                            <form:select path="pet_id" class="form-select">
-                                                <c:forEach  items="${pet}" var="pet">
-                                                    <option value="${pet.id}">${pet.petNombre}</option>
-                                                </c:forEach>
-                                            </form:select>
+                                            <c:if test="${getPet_id != null}">
+                                                <form:input path="pet_id" value="${getPet_id}" disabled="true" class="form-control"></form:input>   
+                                            </c:if>
+                                            <c:if test="${getPet_id == null}">
+                                                <form:label path="pet_id">Mascota</form:label>
+                                                <form:select path="pet_id" class="form-select">
+                                                    <c:forEach  items="${pet}" var="pet">
+                                                        <option value="${pet.id}">${pet.petNombre}</option>
+                                                    </c:forEach>
+                                                </form:select>
+                                            </c:if>
                                         </div>
                                         <div class="row">
                                             <div class="col">
                                                 <button type="submit" class="btnRegister">Crear</button>
                                             </div>
                                             <div class="col">
-                                                    <a href="listAdopcion.htm" class="btnBack btn">Regresar</a> 
+                                                <a href="listAdopcion.htm" class="btnBack btn">Regresar</a> 
                                             </div>
                                         </div>
                                     </div>

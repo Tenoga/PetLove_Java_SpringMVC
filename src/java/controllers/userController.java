@@ -40,11 +40,13 @@ public class userController {
 
     private final UsuarioBeanValidation usuariovalidar;
     private final JdbcTemplate jdbcTemplate;
+    private final UsuarioDao uDao;
 
     public userController() {
         this.usuariovalidar = new UsuarioBeanValidation();
         ConectarDB con = new ConectarDB();
         jdbcTemplate = new JdbcTemplate(con.conDB());
+        this.uDao = new UsuarioDao();
     }
 
     @RequestMapping(value = "formUsuario.htm", method = RequestMethod.GET)
@@ -210,7 +212,6 @@ public class userController {
             HttpServletRequest request
     ) {
         ModelAndView mav = new ModelAndView();
-        UsuarioDao uDao = new UsuarioDao();
         //Variable tipo list para poder recorrer el vector 
         ArrayList<String> userlist = new ArrayList<>();
         boolean isMultipart = ServletFileUpload.isMultipartContent(request);

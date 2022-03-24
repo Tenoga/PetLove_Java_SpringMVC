@@ -30,10 +30,13 @@ public class UsuarioDao {
     JdbcTemplate jdbcTemplate;
     ConectarDB con = new ConectarDB();
 
+    public UsuarioDao() {
+        this.jdbcTemplate = new JdbcTemplate(con.conDB());
+    }
+    
     //-------------------Mostrar Listado de Usuarios-----------------//
     public List ConsultarUsuario() {
         List usuario;
-        this.jdbcTemplate = new JdbcTemplate(con.conDB());
         String sql = "select * from usuario";
         usuario = this.jdbcTemplate.queryForList(sql);
         return usuario;
@@ -42,7 +45,6 @@ public class UsuarioDao {
     //====================Borrado de imagen========================//
     public void deleteImg(String foto, String deletePath, int id) {
         final String DELETE_DIRECTORY = "..\\..\\web\\";
-        this.jdbcTemplate = new JdbcTemplate(con.conDB());
         //Ubicación del archivo en el servidor
         String deleteFile = deletePath + DELETE_DIRECTORY + foto;
         File borrar = new File(deleteFile);
@@ -135,7 +137,6 @@ public class UsuarioDao {
         //====================Borrado de imagen Actualizada========================//
     public void deleteImgAct(String foto, String deletePath) {
         final String DELETE_DIRECTORY = "..\\..\\web\\";
-        this.jdbcTemplate = new JdbcTemplate(con.conDB());
         //Ubicación del archivo en el servidor
         String deleteFile = deletePath + DELETE_DIRECTORY + foto;
         File borrar = new File(deleteFile);
@@ -148,7 +149,6 @@ public class UsuarioDao {
 
 
     public void actUsuarioSinImg(UsuarioBean ub, ArrayList<String> userlist){
-        this.jdbcTemplate = new JdbcTemplate(con.conDB());
         
         ub.setNombre(userlist.get(0));
         ub.setCorreo(userlist.get(1));
@@ -158,5 +158,5 @@ public class UsuarioDao {
         //=======Sentancia SQL=========//
         String sql = "update usuario set nombre = ?, correo = ?, edad = ?, Telefono = ? where id = ?";
         jdbcTemplate.update(sql, ub.getNombre(), ub.getCorreo(), ub.getEdad(), ub.getTelefono(), ub.getId());
-    }
+    }    
 }

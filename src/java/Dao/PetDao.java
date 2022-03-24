@@ -27,11 +27,23 @@ public class PetDao {
     JdbcTemplate jdbcTemplate;
     ConectarDB con = new ConectarDB();
 
+    public PetDao() {
+        this.jdbcTemplate = new JdbcTemplate(con.conDB());
+    }
+    
+
     //-------------------Mostrar Listado de Mascotas-----------------//
     public List consultarPet() {
         List datos;
-        this.jdbcTemplate = new JdbcTemplate(con.conDB());
         String sql = "select * from pet";
+        datos = this.jdbcTemplate.queryForList(sql);
+        return datos;
+    }
+    
+        //-------------------Mostrar Listado de Mascotas Disponibles-----------------//
+    public List getAvailablePet() {
+        List datos;
+        String sql = "select * from pet where is_adopted = 0";
         datos = this.jdbcTemplate.queryForList(sql);
         return datos;
     }
@@ -133,7 +145,6 @@ public class PetDao {
     }
     //====================Borrado de imagen Actualizada========================//
     public void deleteImgAct(String foto, String deletePath) {
-        this.jdbcTemplate = new JdbcTemplate(con.conDB());
         //Ubicación del archivo en el servidor
         String deleteFile = deletePath + DELETE_DIRECTORY + foto;
         File borrar = new File(deleteFile);

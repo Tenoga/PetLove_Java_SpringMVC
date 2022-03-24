@@ -61,14 +61,16 @@ public class adoptController {
     }
     //===================Trae el formulario Adopcion============================//
     @RequestMapping(value = "formAdopcion.htm", method = RequestMethod.GET)
-    public ModelAndView formAdopt() {
+    public ModelAndView formAdopt(HttpServletRequest request) {
         ModelAndView mav = new ModelAndView();
         AdoptBean adopt = new AdoptBean();
         mav.addObject("adopt", adopt);
         List user = userDao.ConsultarUsuario() ;
         mav.addObject("user", user);
-        List pet = petDao.consultarPet();
+        List pet = petDao.getAvailablePet();
         int code = adoptDao.consultarIdAdopcion();
+        String getPet_id = request.getParameter("id");
+        mav.addObject("getPet_id", getPet_id);
         mav.addObject("code", code);
         mav.addObject("pet", pet);
         mav.setViewName("views/formAdopcion");
@@ -108,7 +110,7 @@ public class adoptController {
     //===================Insertar Adopcion============================//
     @RequestMapping(value = "formAdopcion.htm", method = RequestMethod.POST)
     public ModelAndView postAdoptForm(
-            @ModelAttribute("adopcion") AdoptBean ab,
+            @ModelAttribute("adopt") AdoptBean ab,
             BindingResult result,
             SessionStatus status
     ) {
@@ -119,7 +121,11 @@ public class adoptController {
             mav.setViewName("views/formAdopcion");
         } else {
             String sql = "insert into adopt(user_id, pet_id, adopt_date) values(?,?,?)";
+//          
+//            String sql2 = "";
+            System.out.println("Pruebaaaaa"  + ab.getUser_id() + ab.getPet_id() + ab.getAdopt_date());
             jdbcTemplate.update(sql, ab.getUser_id(), ab.getPet_id(), ab.getAdopt_date());
+            
             mav.setViewName("redirect:/listAdopcion.htm");
         }
         return mav;

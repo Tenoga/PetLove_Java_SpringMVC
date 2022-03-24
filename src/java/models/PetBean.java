@@ -20,19 +20,21 @@ public class PetBean {
     private int petNacimiento;
     private String petRaza;
     private String petColor;
+    private Boolean is_adopted;
     private String petFoto;
     private String petFotoOld;
 
     public PetBean() {
     }
 
-    public PetBean(int id, String petTipo, String petNombre, int petNacimiento, String petRaza, String petColor, String petFoto, String petFotoOld) {
+    public PetBean(int id, String petTipo, String petNombre, int petNacimiento, String petRaza, String petColor, Boolean is_adopted, String petFoto, String petFotoOld) {
         this.id = id;
         this.petTipo = petTipo;
         this.petNombre = petNombre;
         this.petNacimiento = petNacimiento;
         this.petRaza = petRaza;
         this.petColor = petColor;
+        this.is_adopted = is_adopted;
         this.petFoto = petFoto;
         this.petFotoOld = petFotoOld;
     }
@@ -83,6 +85,14 @@ public class PetBean {
 
     public void setPetColor(String petColor) {
         this.petColor = petColor;
+    }
+
+    public Boolean isIs_adopted() {
+        return is_adopted;
+    }
+
+    public void setIs_adopted(Boolean is_adopted) {
+        this.is_adopted = is_adopted;
     }
 
     public String getPetFoto() {
