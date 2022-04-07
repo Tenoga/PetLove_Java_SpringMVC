@@ -52,19 +52,19 @@
                                             </div>
                                             <div class="form-group">
                                             <form:label path="petNacimiento">Edad (años):</form:label>
-                                            <form:input path="petNacimiento" class="form-control" placeholder="15" value=""></form:input>
+                                            <form:input path="petNacimiento" class="form-control" placeholder="15" value="" required="required"></form:input>
                                             </div>
                                             <div class="form-group">
                                             <form:label path="petRaza">Raza/Tipo:</form:label>
-                                            <form:input path="petRaza" class="form-control" placeholder="Criollo" value=""></form:input>
+                                            <form:input path="petRaza" class="form-control" placeholder="Criollo" value="" required="required"></form:input>
                                             </div>
                                             <div class="form-group">
                                             <form:label path="petColor">Color:</form:label>
-                                            <form:input path="petColor" class="form-control" placeholder="Gris" value=""></form:input>
+                                            <form:input path="petColor" class="form-control" placeholder="Gris" value="" required="required"></form:input>
                                             </div>
                                             <div class="form-group">
                                             <form:label path="petFoto">Foto:</form:label>
-                                            <form:input path="petFoto" class="form-control" placeholder="Foto *" type="file"></form:input>
+                                            <form:input path="petFoto" class="form-control" placeholder="Foto *" type="file" required="required"></form:input>
                                             </div>
                                             <div class="row">
                                                 <div class="col">

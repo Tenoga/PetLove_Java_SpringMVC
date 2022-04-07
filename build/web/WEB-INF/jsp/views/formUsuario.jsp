@@ -41,23 +41,23 @@
 
                                             <div class="form-group">
                                             <form:label path="nombre" >Nombre de usuario:</form:label>                      
-                                            <form:input path="nombre" class="form-control" placeholder="Nombre de Usuario *" value=""></form:input>   
+                                            <form:input path="nombre" class="form-control" placeholder="Nombre de Usuario *" value="" required="required"></form:input>   
                                             </div>
                                             <div class="form-group">
                                             <form:label path="correo">Correo:</form:label>
-                                            <form:input path="correo" class="form-control"  placeholder="Correo *" value=""></form:input>
+                                            <form:input path="correo" class="form-control"  placeholder="Correo *" value="" required="required"></form:input>
                                             </div>
                                             <div class="form-group">
                                             <form:label path="edad">Edad:</form:label>
-                                            <form:input path="edad" class="form-control" placeholder="Edad *" value="" ></form:input>
+                                            <form:input path="edad" class="form-control" placeholder="Edad *" value="" required="required"></form:input>
                                             </div>
                                             <div class="form-group">
                                             <form:label path="telefono">Telefono:</form:label>
-                                            <form:input path="telefono" class="form-control" placeholder="Telefono *" value=""  ></form:input>
+                                            <form:input path="telefono" class="form-control" placeholder="Telefono *" value=""  required="required"></form:input>
                                             </div>
                                             <div class="form-group">
                                             <form:label path="foto">Foto:</form:label>
-                                            <form:input path="foto" class="form-control" placeholder="Foto *" type="file"></form:input>
+                                            <form:input path="foto" class="form-control" placeholder="Foto *" type="file" required="required"></form:input>
                                             </div>
                                             <div class="row">
                                                 <div class="col">

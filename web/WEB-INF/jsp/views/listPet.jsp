@@ -45,9 +45,6 @@
                                     <a href="updatePet.htm?id=${pet.id}&${pet.petFotoOld}" class="btn btn-warning" style="border-radius: 13px;"><img src="https://img.icons8.com/ios/50/000000/pencil.png" width="25px"/></a>
                                 <a href="deletePet.htm?id=${pet.id}&${pet.petFoto}" class="btn btn-danger" style="border-radius: 13px;"><img  src="https://img.icons8.com/ios/50/000000/delete--v1.png" width="25px" /></a> 
                                 <br>
-                                <c:if test="${!pet.is_adopted}"> 
-                                    <a href="formAdopcion.htm?id=${pet.id}" class="btn btn-primary mt-3 rounded-pill" style="border-radius: 13px;">Adoptar</a> 
-                                </c:if>
                                 <c:if test="${pet.is_adopted}"> <p class="fs-5">¡Ya esta adoptado!</p> </c:if>
                                 </td>
                             </tr>    
